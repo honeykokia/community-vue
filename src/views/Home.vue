@@ -9,39 +9,40 @@ import Navbar from '@/components/home/Navbar.vue';
     <header class="header">
       <Navbar/>
     </header>
+    <!-- group relative bg-gray-800 text-white w-16 hover:w-64 transition-[width] duration-300 ease-in-out flex flex-col py-4 space-y-4 -->
     <aside
-      class="sidebar group relative text-white transition-all duration-300 w-20 hover:w-64"
+      class="sidebar group relative w-24 hover:w-48 transition-[width] duration-300 ease-in-out "
     >
       <nav class="flex flex-col h-full py-4 space-y-4">
         <!-- Menu Items -->
-        <a href="#" class="flex items-center px-4 py-2 hover:bg-blue-100">
+        <a href="#" class="flex items-center px-4 py-2 hover:bg-blue-100 whitespace-nowrap">
           <span class="text-3xl">👤</span>
           <span
-            class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+            class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-100"
           >
             登入
           </span>
         </a>
-        <a href="#" class="flex items-center px-4 py-2 hover:bg-blue-100">
+        <a href="#" class="flex items-center px-4 py-2 hover:bg-blue-100 whitespace-nowrap">
           <span class="text-3xl">🔥</span>
           <span
-            class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+            class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-100"
           >
             熱門
           </span>
         </a>
-        <a href="#" class="flex items-center px-4 py-2 hover:bg-blue-100">
+        <a href="#" class="flex items-center px-4 py-2 hover:bg-blue-100 whitespace-nowrap">
           <span class="text-3xl">📄</span>
           <span
-            class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+            class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-100"
           >
             分類
           </span>
         </a>
-        <a href="#" class="flex items-center px-4 py-2 hover:bg-blue-100">
+        <a href="#" class="flex items-center px-4 py-2 hover:bg-blue-100 whitespace-nowrap">
           <span class="text-3xl">🆕</span>
           <span
-            class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+            class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-100"
           >
             最新
           </span>
@@ -62,13 +63,12 @@ import Navbar from '@/components/home/Navbar.vue';
 .container{
   display: grid;
   gap: 10px;
-  grid-template-columns: auto 1fr 150px;
+  grid-template-columns: 96px 1fr 150px;
   grid-template-rows: 150px 1fr;
   grid-template-areas: 
     "header header header"
     "sidebar main advertise";
   height: 100vh;
-
 }
 .header {
   grid-area: header;
