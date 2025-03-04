@@ -1,30 +1,40 @@
 <script setup>
 import logo from "@/assets/jpg/light.jpg";
+import avatar from "@/assets/jpg/avatar.jpg";
 import router from "@/router";
 import { ref } from "vue";
 
 const logoJpg = ref(logo);
+const avatarJpg = ref(avatar)
 </script>
 
 <template>
   <div class="navbar">
     <div class="logo">
-      <img :src="logoJpg" alt="Vue logo" />
+      <img :src="logoJpg" alt="Vue logo"  class="h-36 w-36"/>
     </div>
-    <div class="menu">
-      <ul>
-        <li></li>
-        <li>分類</li>
-        <li>熱門</li>
-        <li>最新</li>
-        <li>標籤</li>
-        <li>排行榜</li>
-      </ul>
+    <div class="search mx-4">
+      <input
+        type="text"
+        placeholder="搜尋文章或作者..."
+        class="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
     </div>
-    <div class="config">
-      <ul>
-        <li>登入/註冊</li>
-      </ul>
+    <div class="config flex items-center space-x-4 ml-auto px-10">
+      <button class="text-3xl">🌙</button>
+      <button class="relative text-2xl">
+        🔔
+        <span
+          class="absolute top-0 right-0 inline-block w-2 h-2 bg-red-500 rounded-full"
+        ></span>
+      </button>
+
+      <!-- 使用者頭像 -->
+      <img
+        :src="avatarJpg"
+        alt="User Avatar"
+        class="h-16 w-16 rounded-full border-2 border-blue-500 "
+      />
     </div>
   </div>
 </template>
@@ -32,7 +42,7 @@ const logoJpg = ref(logo);
 <style scoped>
 .navbar {
   display: grid;
-  grid-template-columns: 50px 1fr 1fr;
+  grid-template-columns: 200px 1fr 1fr;
   grid-template-rows: 150px;
   background-color: #d4dee4;
   align-items: center;
@@ -43,42 +53,13 @@ const logoJpg = ref(logo);
   padding: 10px;
 }
 
-.logo img {
-  width: 150px;
-  height: 150px;
-}
-
-.menu {
+.search {
   font-family: "Noto Sans TC", sans-serif;
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
 }
-.menu ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-}
-.menu ul li {
-  padding-left: 50px;
-  font-size: 24px;
-}
 
-.config {
-  padding-right: 30px;
-}
-
-.config ul {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  list-style: none;
-}
-.config ul li {
-  padding-left: 50px;
-  font-size: 24px;
-}
 
 
 </style>
