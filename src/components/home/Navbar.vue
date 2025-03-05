@@ -1,5 +1,5 @@
 <script setup>
-import logo from "@/assets/jpg/light.jpg";
+import logo from "@/assets/jpg/logo.png";
 import avatar from "@/assets/jpg/avatar.jpg";
 import router from "@/router";
 import { ref } from "vue";
@@ -10,9 +10,12 @@ const avatarJpg = ref(avatar)
 
 <template>
   <div class="navbar">
-    <div class="logo">
-      <img :src="logoJpg" alt="Vue logo"  class="h-36 w-36"/>
-    </div>
+    <RouterLink to="/">
+      <div class="logo cursor-pointer">
+        <img :src="logoJpg" alt="Vue logo"  class="h-36 w-36"/>
+      </div>
+    </RouterLink>
+
     <div class="search mx-4">
       <input
         type="text"
