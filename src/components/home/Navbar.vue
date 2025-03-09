@@ -47,7 +47,6 @@ const avatarJpg = ref(avatar)
   display: grid;
   grid-template-columns: 200px 1fr 1fr;
   grid-template-rows: 150px;
-  background-color: #d4dee4;
   align-items: center;
   height: 100%;
 }

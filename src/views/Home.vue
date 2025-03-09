@@ -18,8 +18,8 @@ const login = () =>{
     >
       <nav class="flex flex-col h-full py-4 space-y-4">
         <!-- Menu Items -->
-        <RouterLink to="/login" class="flex items-center px-4 py-2 hover:bg-blue-100 whitespace-nowrap">
-          <span class="text-3xl">👤</span>
+        <RouterLink to="/login" class="flex items-center px-6 py-2 hover:bg-blue-100 whitespace-nowrap">
+          <span class="text-3xl icon">👤</span>
           <span
             class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-100"
           >
@@ -27,24 +27,24 @@ const login = () =>{
           </span>
         </RouterLink>
 
-        <a href="#" class="flex items-center px-4 py-2 hover:bg-blue-100 whitespace-nowrap">
-          <span class="text-3xl">🔥</span>
+        <a href="#" class="flex items-center px-6 py-2 hover:bg-blue-100 whitespace-nowrap">
+          <span class="text-3xl icon">🔥</span>
           <span
             class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-100"
           >
             熱門
           </span>
         </a>
-        <a href="#" class="flex items-center px-4 py-2 hover:bg-blue-100 whitespace-nowrap">
-          <span class="text-3xl">📄</span>
+        <a href="#" class="flex items-center px-6 py-2 hover:bg-blue-100 whitespace-nowrap">
+          <span class="text-3xl icon" >📄</span>
           <span
             class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-100"
           >
             分類
           </span>
         </a>
-        <a href="#" class="flex items-center px-4 py-2 hover:bg-blue-100 whitespace-nowrap">
-          <span class="text-3xl">🆕</span>
+        <a href="#" class="flex items-center px-6 py-2 hover:bg-blue-100 whitespace-nowrap">
+          <span class="text-3xl icon" >🆕</span>
           <span
             class="text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-100"
           >
@@ -73,11 +73,12 @@ const login = () =>{
 }
 .header {
   grid-area: header;
+  background-color: #c5d1db;
   color: black;
 }
 .sidebar{
   grid-area: sidebar;
-  background-color: #d4dee4;
+  background-color: #c5d1db;
   color: #222222;
 }
 .main{
@@ -87,7 +88,10 @@ const login = () =>{
 }
 .advertise{
   grid-area: advertise;
-  background-color: #eee;
+  background-color: #f0f2f5;
   padding: 20px;
+}
+.icon{
+  filter: grayscale(40%) brightness(90%);
 }
 </style>
