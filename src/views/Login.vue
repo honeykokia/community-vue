@@ -1,8 +1,10 @@
 <script setup>
 import loginLogo from "@/assets/jpg/logo.png";
 import router from "@/router";
+import { useAuthStore } from "@/stores/authStore";
 import { ref } from "vue";
 
+const authStore = useAuthStore();
 const logoJpg = ref(loginLogo);
 
 const api = import.meta.env.VITE_API_URL;
@@ -34,7 +36,7 @@ const login = async ()=>{
         passwordError.value = data.errors.email;
         return;
     }
-
+    authStore.login(data.token);
     passwordError.value = '';
     alert('登入成功');
     router.push('/');
