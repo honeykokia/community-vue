@@ -3,9 +3,13 @@ import logo from "@/assets/jpg/logo.png";
 import avatar from "@/assets/jpg/avatar.jpg";
 import router from "@/router";
 import { ref } from "vue";
+import { useAuthStore } from "@/stores/authStore";
 
 const logoJpg = ref(logo);
 const avatarJpg = ref(avatar)
+
+const authStore = useAuthStore();
+
 </script>
 
 <template>
@@ -24,20 +28,21 @@ const avatarJpg = ref(avatar)
       />
     </div>
     <div class="config flex items-center space-x-4 ml-auto px-10">
-      <button class="text-3xl">🌙</button>
-      <button class="relative text-2xl">
+      <button class="text-3xl duration-300 hover:scale-125">🌙</button>
+      <button class="relative duration-300 hover:scale-125 text-2xl">
         🔔
         <span
           class="absolute top-0 right-0 inline-block w-2 h-2 bg-red-500 rounded-full"
         ></span>
       </button>
 
-      <!-- 使用者頭像 -->
-      <img
-        :src="avatarJpg"
-        alt="User Avatar"
-        class="h-16 w-16 rounded-full border-2 border-blue-500 "
-      />
+       <RouterLink :to="authStore.token ? '/member': '/login'">
+        <img
+          :src="avatarJpg"
+          alt="User Avatar"
+          class="h-16 w-16 rounded-full border-2 border-blue-500 shadow-lg cursor-pointer duration-300 hover:scale-125"
+        />
+      </RouterLink>
     </div>
   </div>
 </template>
