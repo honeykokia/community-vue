@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities; 
+
+
+@layer components{
+    .input{
+        @apply block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 sm:text-sm/6;
+    }
+    .input-primary{
+        @apply input focus:outline-indigo-600;
+    }
+    .input-error{
+        @apply input border border-red-500 focus:outline-red-600;
+    }
+
+
+    .button{
+        @apply flex w-full justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold text-black shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2;
+    }
+    .button-primary{
+        @apply button bg-indigo-400 hover:bg-indigo-500 focus-visible:outline-indigo-600 text-white;
+    }
+
+    .p-error {
+        @apply mt-1 h-5 text-base text-red-500 focus:outline-red-600;
+    }
+
+    /* 
+    * 用於 登入、註冊、會員資料頁面
+    */
+
+    .auth-container{
+        @apply flex flex-col items-center justify-center min-h-full bg-gray-100;
+    }
+    
+    .auth-box{
+        @apply sm:mx-auto sm:w-full sm:max-w-sm;
+    }
+    .auth-box-form{
+        @apply auth-box mt-10;
+    }
+    .auth-title{
+        @apply text-center text-2xl font-semibold text-gray-900;
+    }
+    .auth-label{
+        @apply block text-sm font-medium text-gray-700;
+    }
+
+}
