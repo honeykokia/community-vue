@@ -2,93 +2,153 @@
 import loginLogo from "@/assets/jpg/logo.png";
 import router from "@/router";
 import { useAuthStore } from "@/stores/authStore";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { login } from "@/api/auth";
 
 const authStore = useAuthStore();
 const logoJpg = ref(loginLogo);
 
-const api = import.meta.env.VITE_API_URL;
-const loginUrl = `${api}/user/login`;
-
-const loginData = ref({
-    email: "",
-    password: "",
+const serverErrors = ref({});
+const touched = ref({
+  email: false,
+  password: false,
 });
+const loginData = ref({
+  email: "",
+  password: "",
+});
+const errors = computed(() => ({
+  email:
+    (serverErrors.value.email || !loginData.value.email) && touched.value.email,
+  password:
+    (serverErrors.value.password || !loginData.value.password) && touched.value.password,
+  general:
+    serverErrors.value.general,
+}));
 
-const passwordError = ref("");
+const handleBlur = (field) => {
+  // serverErrors.value[field] = "";
+  touched.value[field] = true;
+};
 
-const login = async ()=>{
-    
-    const response = await fetch(loginUrl, {
-        method: 'POST',
-        headers:{
-            'Content-Type': 'application/json'
-            },
-        body: JSON.stringify({
-            email: email.value,
-            password: password.value
-        })
-    });
+const handleLogin = async () => {
 
-    const data = await response.json();
-    console.log(data);
-    if(!response.ok){
-        passwordError.value = data.errors.email;
-        return;
+  serverErrors.value = {};
+  try{
+    const data = await login(loginData.value);
+    if(data.status === "error"){
+      serverErrors.value = data.errors || {};
+      Object.keys(touched.value).forEach((key) => {
+        touched.value[key] = true;
+      });
+      return;
     }
     authStore.login(data.token);
-    passwordError.value = '';
-    alert('登入成功');
-    router.push('/');
-    
-}
+    alert("登入成功");
+    router.push("/");
 
+  }catch(error){
+    console.log(error);
+    serverErrors.value = error.errors || {};
+  }
+
+  // const response = await fetch(loginUrl, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({
+  //     email: email.value,
+  //     password: password.value,
+  //   }),
+  // });
+  
+  // const data = await response.json();
+  // console.log(data);
+  // if (!response.ok || data.status === "error") {
+  //   // passwordError.value = data.errors.email;
+  //   serverErrors.value = data.errors || {};
+  //   Object.keys(touched.value).forEach((key) => {
+  //     touched.value[key] = true;
+  //   });
+  //   return;
+  // }
+  // authStore.login(data.token);
+  
+  // alert("登入成功");
+  // router.push("/");
+};
 </script>
 
 <template>
-  <div class="flex min-h-full flex-col justify-center px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img class="mx-auto h-36 w-auto" :src="logoJpg" alt="Your Company">
-        <h2 class="text-center text-2xl/9 font-bold tracking-tight text-gray-600">會員登入</h2>
+  <!-- flex min-h-full flex-col justify-center px-6 lg:px-8 -->
+  <div class="auth-container">
+    <div class="auth-box">
+      <img class="mx-auto h-36 w-auto" :src="logoJpg" alt="Your Company" />
+      <h2 class="auth-title">會員登入</h2>
     </div>
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form @submit.prevent="login" class="space-y-6" action="#" method="POST">
-            <div>
-                <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
-                <div class="mt-2">
-                <input v-model="loginData.email" type="email" name="email" id="email" autocomplete="email" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                </div>
+    <div class="auth-box-form">
+      <form @submit.prevent="handleLogin" class="space-y-6" action="#" method="POST">
+        <div>
+          <label for="email" class="auth-label">Email address</label>
+          <div class="mt-2">
+            <input
+              v-model="loginData.email"
+              v-on:blur="handleBlur('email')"
+              type="email"
+              name="email"
+              id="email"
+              autocomplete="email"
+              class="input-primary"
+              :class="{ 'input-error': errors.email }"
+            />
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="password" class="auth-label">Password</label>
+            <div class="text-sm">
+              <a
+                href="#"
+                class="font-semibold text-indigo-600 hover:text-indigo-500"
+                >Forgot password?</a
+              >
             </div>
+          </div>
+          <div class="mt-2">
+            <input
+              v-model="loginData.password"
+              v-on:blur="handleBlur('password')"
+              type="password"
+              name="password"
+              id="password"
+              autocomplete="current-password"
+              class="input-primary"
+              :class="{ 'input-error': errors.password }"
+            />
+          </div>
+        </div>
 
-            <div>
-                <div class="flex items-center justify-between">
-                <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
-                <div class="text-sm">
-                    <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
-                </div>
-                </div>
-                <div class="mt-2">
-                <input v-model="loginData.password" type="password" name="password" id="password" autocomplete="current-password" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                </div>
-            </div>
+        <div v-for="error in serverErrors" :key="error" class="p-error">
+          {{error}}
+        </div>
+        <div>
+          <button type="submit" class="button-primary">Sign in</button>
+        </div>
+      </form>
 
-            <p v-if="passwordError" class="mt-1 h-5 text-base text-red-500">{{ passwordError }}</p>
-
-            <div>
-                <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-400 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
-            </div>
-        </form>
-
-        <p class="mt-10 text-center text-sm/6 text-gray-500">
+      <p class="mt-10 text-center text-sm/6">
         Not a member?
-        <RouterLink to="/register" class="font-semibold text-indigo-600 hover:text-indigo-500">
-            Sign Up Now
+        <RouterLink
+          to="/register"
+          class="font-semibold text-indigo-600 hover:text-indigo-500"
+        >
+          Sign Up Now
         </RouterLink>
-        </p>
+      </p>
     </div>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
