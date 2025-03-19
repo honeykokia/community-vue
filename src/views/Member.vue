@@ -1,25 +1,79 @@
 <script setup>
 import logo from "@/assets/jpg/logo.png";
-import { ref } from "vue";
+import avatar from "@/assets/jpg/avatar.jpg";
+import { computed, onMounted, ref } from "vue";
+import { member } from "@/api/auth";
+import { useAuthStore } from "@/stores/authStore";
+
+
 const logoJpg = ref(logo);
+
+const authStore = useAuthStore();
+const serverErrors = ref({});
+const memberData =ref({
+  image: "",
+  name: "",
+  birthday: "",
+  email: "",
+  gender: "",
+  password: "",
+});
+
+const pictureUrl = computed(()=> `${import.meta.env.VITE_API_URL}${memberData.value.image}`);
+
+
+const getMember = async () => {
+
+  serverErrors.value = {};
+  try {
+    const fetchdata = await member();
+    memberData.value = fetchdata.data;
+    console.log(memberData.value.image);
+  } catch (error) {
+    serverErrors.value = error.errors;
+  }
+
+};
+
+onMounted(()=>{
+  getMember();
+})
+
 </script>
 
 <template>
-  <div class="flex min-h-full flex-col justify-center px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+  <div class=".auth-container">
+    <div class="auth-box">
       <img class="mx-auto h-36 w-auto" :src="logoJpg" alt="Your Company" />
       <h2 class="text-center text-2xl/9 font-bold tracking-tight text-gray-600">
         會員資料
       </h2>
     </div>
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="auth-box-form">
       <form class="space-y-6" action="#" method="POST">
         <div>
-          <label for="name" class="block text-sm/6 font-medium text-gray-900"
-            >姓名</label
-          >
+          <label for="name" class="auth-label">大頭貼上傳</label>
           <div>
             <input
+              type="file"
+              accept="image/*"
+              class="input-primary"
+            />
+          </div>
+          <div class="mt-4">
+            <p>圖片預覽</p>
+            <img
+              :src="pictureUrl"
+              alt="Preview"
+              class="w-40 h-40 object-cover rounded-full border"
+            />
+          </div>
+        </div>
+        <div>
+          <label for="name" class="auth-label">姓名</label>
+          <div>
+            <input
+              v-model="memberData.name"
               type="text"
               name="name"
               id="name"
@@ -29,11 +83,10 @@ const logoJpg = ref(logo);
           </div>
         </div>
         <div>
-          <label for="birthday" class="text-sm/6 font-medium text-gray-900"
-            >生日</label
-          >
+          <label for="birthday" class="auth-label">生日</label>
           <div>
             <input
+              v-model="memberData.birthday"
               type="date"
               name="birthday"
               id="birthday"
@@ -44,11 +97,10 @@ const logoJpg = ref(logo);
         </div>
 
         <div>
-          <label for="email" class="block text-sm/6 font-medium text-gray-900"
-            >性別</label
-          >
+          <label for="email" class="auth-label">性別</label>
           <div>
             <input
+              v-model="memberData.gender"
               type="text"
               name="gender"
               id="gender"
@@ -58,11 +110,10 @@ const logoJpg = ref(logo);
           </div>
         </div>
         <div>
-          <label for="email" class="block text-sm/6 font-medium text-gray-900"
-            >信箱</label
-          >
+          <label for="email" class="auth-label">信箱</label>
           <div>
             <input
+              v-model="memberData.email"
               type="text"
               name="email"
               id="email"
@@ -72,9 +123,10 @@ const logoJpg = ref(logo);
           </div>
         </div>
         <div>
-          <label for="password" class="block text-sm">密碼</label>
+          <label for="password" class="auth-label">密碼</label>
           <div>
             <input
+              v-model="memberData.password"
               type="text"
               name="passowrd"
               id="password"
@@ -82,6 +134,10 @@ const logoJpg = ref(logo);
               disabled
             />
           </div>
+        </div>
+        <p v-if="serverErrors.general" class="p-error">{{serverErrors.general}}</p>
+        <div>
+          <button type="button" class="button-primary">Edit</button>
         </div>
       </form>
     </div>

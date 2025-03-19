@@ -52,36 +52,10 @@ const handleLogin = async () => {
     serverErrors.value = error.errors || {};
   }
 
-  // const response = await fetch(loginUrl, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     email: email.value,
-  //     password: password.value,
-  //   }),
-  // });
-  
-  // const data = await response.json();
-  // console.log(data);
-  // if (!response.ok || data.status === "error") {
-  //   // passwordError.value = data.errors.email;
-  //   serverErrors.value = data.errors || {};
-  //   Object.keys(touched.value).forEach((key) => {
-  //     touched.value[key] = true;
-  //   });
-  //   return;
-  // }
-  // authStore.login(data.token);
-  
-  // alert("登入成功");
-  // router.push("/");
 };
 </script>
 
 <template>
-  <!-- flex min-h-full flex-col justify-center px-6 lg:px-8 -->
   <div class="auth-container">
     <div class="auth-box">
       <img class="mx-auto h-36 w-auto" :src="logoJpg" alt="Your Company" />

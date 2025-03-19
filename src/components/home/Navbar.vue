@@ -10,6 +10,7 @@ const avatarJpg = ref(avatar)
 
 const authStore = useAuthStore();
 
+
 </script>
 
 <template>

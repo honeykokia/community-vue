@@ -8,7 +8,7 @@ export const login = async (data) => {
   try {
 
     const rawData = toRaw(data);
-    const response = await apiFetch(`${api}/user/login`, {
+    const response = await apiFetch(`${api}/api/user/login`, {
       method: "POST",
       body: JSON.stringify(rawData),
     });
@@ -24,12 +24,11 @@ export const login = async (data) => {
   }
 };
 
-
 export const register = async (data) => {
   try {
 
     const rawData = toRaw(data);
-    const response = await apiFetch(`${api}/user/register`, {
+    const response = await apiFetch(`${api}/api/user/register`, {
       method: "POST",
       body: JSON.stringify(rawData),
     });
@@ -41,6 +40,18 @@ export const register = async (data) => {
     
     return response;
   } catch (error) {
+    throw error;
+  }
+}
+
+export const member = async()=>{
+  try{
+    const response = await apiFetch(`${api}/api/user/member`,{
+      method:"POST",
+    });
+
+    return response;
+  }catch(error){
     throw error;
   }
 }

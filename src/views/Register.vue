@@ -53,8 +53,6 @@ const handleBlur = (field) => {
 };
 
 const handleRegister = async () => {
-  const hasError = Object.keys(errors.value).some((key)=> errors.value[key]);
-  if(hasError) return;
   
   serverErrors.value = {};
   const data = await register(registerData.value);
