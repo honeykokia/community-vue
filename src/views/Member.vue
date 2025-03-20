@@ -2,15 +2,14 @@
 import logo from "@/assets/jpg/logo.png";
 import avatar from "@/assets/jpg/avatar.jpg";
 import { computed, onMounted, ref } from "vue";
-import { member } from "@/api/auth";
+import { member , memberSave} from "@/api/auth";
 import { useAuthStore } from "@/stores/authStore";
-
 
 const logoJpg = ref(logo);
 
-const authStore = useAuthStore();
+const selectedFile = ref(null);
 const serverErrors = ref({});
-const memberData =ref({
+const memberData = ref({
   image: "",
   name: "",
   birthday: "",
@@ -19,25 +18,79 @@ const memberData =ref({
   password: "",
 });
 
-const pictureUrl = computed(()=> `${import.meta.env.VITE_API_URL}${memberData.value.image}`);
+const pictureUrl = computed(() => {
 
+  if(selectedFile.value){
+    return URL.createObjectURL(selectedFile.value);
+  }
+  if (!memberData.value.image) {
+    return "";
+  }
+  return `${import.meta.env.VITE_API_URL}${memberData.value.image}`;
+});
+
+const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    selectedFile.value = e.target.files[0];
+  }
+};
 
 const getMember = async () => {
-
   serverErrors.value = {};
   try {
     const fetchdata = await member();
     memberData.value = fetchdata.data;
-    console.log(memberData.value.image);
+
   } catch (error) {
     serverErrors.value = error.errors;
   }
-
 };
 
-onMounted(()=>{
+onMounted(() => {
   getMember();
-})
+});
+
+const handleSaveData = async () =>{
+  serverErrors.value = {};
+  const formData = new FormData();
+  // formData.append('name', memberData.value.name);
+  // formData.append('birthday', memberData.value.birthday);
+  // formData.append('password', memberData.value.password);
+  formData.append('data',JSON.stringify(
+    {
+      name: memberData.value.name,
+      birthday: memberData.value.birthday,
+      password: memberData.value.password
+    }));
+    
+  //   formData.append(
+  //   "data",
+  //   new Blob(
+  //     [
+  //       JSON.stringify({
+  //         name: memberData.value.name,
+  //         birthday: memberData.value.birthday,
+  //         password: memberData.value.password,
+  //       }),
+  //     ],
+  //     {
+  //       type: "application/json",
+  //     }
+  //   )
+  // );
+  if (selectedFile.value) {
+    formData.append('file', selectedFile.value);
+  }
+
+  try {
+    const data = await memberSave(formData);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+    serverErrors.value = error.errors;
+  }
+}
 
 </script>
 
@@ -50,17 +103,18 @@ onMounted(()=>{
       </h2>
     </div>
     <div class="auth-box-form">
-      <form class="space-y-6" action="#" method="POST">
+      <form @submit.prevent="handleSaveData" enctype="multipart/form-data" class="space-y-6" action="#" method="POST">
         <div>
           <label for="name" class="auth-label">大頭貼上傳</label>
           <div>
             <input
+              v-on:change="handleFileChange"
               type="file"
               accept="image/*"
               class="input-primary"
             />
           </div>
-          <div class="mt-4">
+          <div class="mt-4 auth-label">
             <p>圖片預覽</p>
             <img
               :src="pictureUrl"
@@ -78,7 +132,6 @@ onMounted(()=>{
               name="name"
               id="name"
               class="input-primary"
-              disabled
             />
           </div>
         </div>
@@ -91,7 +144,6 @@ onMounted(()=>{
               name="birthday"
               id="birthday"
               class="input-primary"
-              disabled
             />
           </div>
         </div>
@@ -131,13 +183,14 @@ onMounted(()=>{
               name="passowrd"
               id="password"
               class="input-primary"
-              disabled
             />
           </div>
         </div>
-        <p v-if="serverErrors.general" class="p-error">{{serverErrors.general}}</p>
+        <p v-if="serverErrors.general" class="p-error">
+          {{ serverErrors.general }}
+        </p>
         <div>
-          <button type="button" class="button-primary">Edit</button>
+          <button type="submit" class="button-primary">Save</button>
         </div>
       </form>
     </div>

@@ -1,6 +1,7 @@
 import { useAuthStore } from "@/stores/authStore";
 import { apiFetch } from "./api";
 import { toRaw } from "vue";
+import { apiFileUpload } from "./fileUpload";
 
 const api = import.meta.env.VITE_API_URL;
 
@@ -52,6 +53,15 @@ export const member = async()=>{
 
     return response;
   }catch(error){
+    throw error;
+  }
+}
+
+export const memberSave = async(formdata)=>{
+  try {
+    const response = await apiFileUpload(`${api}/api/user/member`,formdata);
+    return response;
+  } catch (error) {
     throw error;
   }
 }
