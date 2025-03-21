@@ -83,6 +83,27 @@ const handleRegister = async () => {
         action="#"
         method="POST"
       >
+      
+      <div>
+          <label for="email" class="auth-label">信箱</label>
+          <div class="mt-2">
+            <input
+              v-model="registerData.email"
+              v-on:blur="handleBlur('email')"
+              type="text"
+              name="email"
+              id="email"
+              class="input-primary"
+              :class="{
+                'input-error': errors.email,
+              }"
+            />
+            <p v-if="errors.email" class="p-error">
+              {{ serverErrors.email || "請輸入信箱" }}
+            </p>
+          </div>
+        </div>
+
         <div>
           <label for="name" class="auth-label">姓名</label>
           <div class="mt-2">
@@ -141,26 +162,6 @@ const handleRegister = async () => {
             </select>
             <p v-if="errors.gender" class="p-error">
               {{ serverErrors.gender || "請選擇性別" }}
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <label for="email" class="auth-label">信箱</label>
-          <div class="mt-2">
-            <input
-              v-model="registerData.email"
-              v-on:blur="handleBlur('email')"
-              type="text"
-              name="email"
-              id="email"
-              class="input-primary"
-              :class="{
-                'input-error': errors.email,
-              }"
-            />
-            <p v-if="errors.email" class="p-error">
-              {{ serverErrors.email || "請輸入信箱" }}
             </p>
           </div>
         </div>

@@ -1,12 +1,9 @@
 <script setup>
 import logo from "@/assets/jpg/logo.png";
-import avatar from "@/assets/jpg/avatar.jpg";
-import router from "@/router";
 import { ref } from "vue";
 import { useAuthStore } from "@/stores/authStore";
 
 const logoJpg = ref(logo);
-const avatarJpg = ref(avatar)
 
 const authStore = useAuthStore();
 
@@ -39,7 +36,7 @@ const authStore = useAuthStore();
 
        <RouterLink :to="authStore.token ? '/member': '/login'">
         <img
-          :src="avatarJpg"
+          :src="authStore.image"
           alt="User Avatar"
           class="h-16 w-16 rounded-full border-2 border-blue-500 shadow-lg cursor-pointer duration-300 hover:scale-125"
         />

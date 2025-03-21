@@ -35,15 +35,16 @@ const handleLogin = async () => {
 
   serverErrors.value = {};
   try{
-    const data = await login(loginData.value);
-    if(data.status === "error"){
-      serverErrors.value = data.errors || {};
+    const fetchData = await login(loginData.value);
+    if(fetchData.status === "error"){
+      serverErrors.value = fetchData.errors || {};
       Object.keys(touched.value).forEach((key) => {
         touched.value[key] = true;
       });
       return;
     }
-    authStore.login(data.token);
+    authStore.login(fetchData.data.token);
+    authStore.setImage(fetchData.data.image);
     alert("登入成功");
     router.push("/");
 
