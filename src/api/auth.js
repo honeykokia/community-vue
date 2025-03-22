@@ -45,7 +45,7 @@ export const register = async (data) => {
   }
 }
 
-export const member = async()=>{
+export const memberGet = async()=>{
   try{
     const response = await apiFetch(`${api}/api/user/member`,{
       method:"POST",
@@ -60,6 +60,19 @@ export const member = async()=>{
 export const memberSave = async(formdata)=>{
   try {
     const response = await apiFileUpload(`${api}/api/user/member`,formdata);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const memberChangePassword = async(data)=>{
+  try {
+    const rawData = toRaw(data);
+    const response = await apiFetch(`${api}/api/user/member`,{
+      method:"PATCH",
+      body: JSON.stringify(rawData),
+    });
     return response;
   } catch (error) {
     throw error;

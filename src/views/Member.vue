@@ -1,7 +1,7 @@
 <script setup>
 import logo from "@/assets/jpg/logo.png";
 import { computed, onMounted, ref } from "vue";
-import { member, memberSave } from "@/api/auth";
+import { memberGet, memberSave } from "@/api/auth";
 import { useAuthStore } from "@/stores/authStore";
 import router from "@/router";
 
@@ -33,10 +33,10 @@ const handleFileChange = (e) => {
   }
 };
 
-const getMember = async () => {
+const fetchMemberGet = async () => {
   serverErrors.value = {};
   try {
-    const fetchdata = await member();
+    const fetchdata = await memberGet();
     memberData.value = fetchdata.data
     authStore.setImage(fetchdata.data.image);
   } catch (error) {
@@ -45,7 +45,7 @@ const getMember = async () => {
 };
 
 onMounted(() => {
-  getMember();
+  fetchMemberGet();
 });
 
 const handleSaveData = async () => {
@@ -74,7 +74,7 @@ const handleSaveData = async () => {
   try {
     const data = await memberSave(formData);
     console.log(memberData.value.image)
-    getMember();
+    fetchMemberGet();
     alert("更新成功");
     router.push("/");
   } catch (error) {
@@ -82,13 +82,18 @@ const handleSaveData = async () => {
     serverErrors.value = error.errors;
   }
 };
+
+const changePassword = () =>{
+  router.push("/changePassword");
+}
+
 </script>
 
 <template>
   <div class=".auth-container">
     <div class="auth-box">
       <img class="mx-auto h-36 w-auto" :src="logoJpg" alt="Your Company" />
-      <h2 class="text-center text-2xl/9 font-bold tracking-tight text-gray-600">
+      <h2 class="auth-title">
         會員資料
       </h2>
     </div>
@@ -175,7 +180,7 @@ const handleSaveData = async () => {
           {{ serverErrors.general }}
         </p>
         <div>
-          <Button type="button" class="button-primary" @click="changePassword">修改密碼</Button>
+          <button type="button" class="button-primary" @click="changePassword">修改密碼</button>
         </div>
         <div>
           <button type="submit" class="button-primary">Save</button>
