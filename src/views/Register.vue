@@ -206,7 +206,7 @@ const handleRegister = async () => {
           </div>
         </div>
 
-        <div>
+        <div class="pb-8">
           <button type="submit" class="button-primary">Register</button>
         </div>
       </form>

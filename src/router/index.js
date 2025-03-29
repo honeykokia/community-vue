@@ -4,6 +4,8 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import Member from '@/views/Member.vue'
 import ChangePassword from '@/views/ChangePassword.vue'
+import Advertise from '@/views/Advertise.vue'
+import Dashboard from '@/views/Dashboard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,28 +14,58 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home,
-      children:[{
-        path: 'login',
-        name: 'login',
-        component: Login,
-      },
-      {
-        path: 'register',
-        name: 'register',
-        component: Register,
-      },
-      {
-        path: 'member',
-        name: 'member',
-        component: Member,
-      },
-      {
-        path: 'changePassword',
-        name: 'changePassword',
-        component: ChangePassword,
-      }
-    ],
+    //   children:[
+    //   {
+    //     path: '',
+    //     component: Advertise,
+    //   },
+    //   {
+    //     path: 'login',
+    //     name: 'login',
+    //     component: Login,
+    //   },
+    //   {
+    //     path: 'register',
+    //     name: 'register',
+    //     component: Register,
+    //   },
+    //   {
+    //     path: 'member',
+    //     name: 'member',
+    //     component: Member,
+    //   },
+    //   {
+    //     path: 'changePassword',
+    //     name: 'changePassword',
+    //     component: ChangePassword,
+    //   }
+    // ],
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register,
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard
+    },
+    {
+      path: '/member',
+      name: 'member',
+      component: Member,
+    },
+    {
+      path: '/changePassword',
+      name: 'changePassword',
+      component: ChangePassword,
+    }
   ],
 })
 

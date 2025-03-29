@@ -27,7 +27,7 @@ const errors = computed(() => ({
     touched.value.confirmPassword,
 }));
 const handleBlur = (field) => {
-//   serverErrors.value[field] = "";
+  //   serverErrors.value[field] = "";
   touched.value[field] = true;
 };
 const changePassword = async () => {
@@ -54,7 +54,7 @@ const changePassword = async () => {
     <div class="auth-box-form">
       <form
         @submit.prevent="handleRegister"
-        class="space-y-6"
+        class="space-y-8"
         action="#"
         method="PATCH"
       >
@@ -119,6 +119,10 @@ const changePassword = async () => {
           <button type="submit" @click="changePassword" class="button-primary">
             確認
           </button>
+          <button @click="router.push('/member')" class="mt-2 text-blue-500 hover:underline text-sm">
+            ← 返回
+          </button>
+
         </div>
       </form>
     </div>

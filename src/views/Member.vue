@@ -76,7 +76,7 @@ const handleSaveData = async () => {
     console.log(memberData.value.image)
     fetchMemberGet();
     alert("更新成功");
-    router.push("/");
+    router.push("/dashboard");
   } catch (error) {
     console.log(error);
     serverErrors.value = error.errors;
@@ -90,7 +90,7 @@ const changePassword = () =>{
 </script>
 
 <template>
-  <div class=".auth-container">
+  <div class="auth-container">
     <div class="auth-box">
       <img class="mx-auto h-36 w-auto" :src="logoJpg" alt="Your Company" />
       <h2 class="auth-title">
@@ -184,6 +184,9 @@ const changePassword = () =>{
         </div>
         <div>
           <button type="submit" class="button-primary">Save</button>
+          <button @click="router.push('/dashboard')" class="mt-2 text-blue-500 hover:underline text-sm">
+            ← 返回
+          </button>
         </div>
       </form>
     </div>

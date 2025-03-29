@@ -46,7 +46,7 @@ const handleLogin = async () => {
     authStore.login(fetchData.data.token);
     authStore.setImage(fetchData.data.image);
     alert("登入成功");
-    router.push("/");
+    router.push("/dashboard");
 
   }catch(error){
     console.log(error);
@@ -126,4 +126,6 @@ const handleLogin = async () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>
