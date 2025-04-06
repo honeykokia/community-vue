@@ -45,6 +45,19 @@ export const register = async (data) => {
   }
 }
 
+export const resendVerifyMail = async() =>{
+
+  try {
+    const response = await apiFetch(`${api}/api/user/verify`,{
+      method:"GET",
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+
+}
+
 export const memberGet = async()=>{
   try{
     const response = await apiFetch(`${api}/api/user/member`,{

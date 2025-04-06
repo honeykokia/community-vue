@@ -8,6 +8,7 @@ export const useAuthStore = defineStore('auth', ()=>{
 
     const defaultAvatarUrl = `${import.meta.env.VITE_API_URL}/uploads/defaultAvatar.jpg`;
     const image = ref(localStorage.getItem('avatarUrl') || defaultAvatarUrl);
+    const name = ref();
 
     const login = (newToken) => {
         token.value = newToken;
@@ -19,6 +20,7 @@ export const useAuthStore = defineStore('auth', ()=>{
         image.value = defaultAvatarUrl;
         localStorage.removeItem('token');
         localStorage.removeItem('avatarUrl');
+        localStorage.removeItem('name');
     }
 
     const setImage = (newImage) => {
@@ -26,5 +28,10 @@ export const useAuthStore = defineStore('auth', ()=>{
         localStorage.setItem('avatarUrl', image.value);
     }
 
-    return {token , login , logout , image , setImage};
+    const setName = (newName) => {
+        name.value = newName;
+        localStorage.setItem('name', name.value);
+    }
+
+    return {token , login , logout , image , setImage , name , setName};
 })

@@ -1,6 +1,5 @@
 <script setup>
-import Navbar from "@/components/dashboard/Navbar.vue";
-import Siderbar from "@/components/dashboard/Siderbar.vue";
+import Siderbar from "@/components/dashboard/Sliderbar.vue";
 import router from "@/router";
 import { useAuthStore } from "@/stores/authStore";
 
@@ -38,7 +37,7 @@ const handleLogout = () => {
   grid-template-areas:
     "sidebar main";
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 }
 /* .header {
   grid-area: header;

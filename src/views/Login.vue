@@ -45,6 +45,7 @@ const handleLogin = async () => {
     }
     authStore.login(fetchData.data.token);
     authStore.setImage(fetchData.data.image);
+    authStore.setName(fetchData.data.name);
     alert("登入成功");
     router.push("/dashboard");
 

@@ -63,13 +63,16 @@
         @apply h-16 w-16 rounded-full border-2 border-blue-500 shadow-lg cursor-pointer duration-300 hover:scale-125 mx-auto
     }
     .sliderbar-item{
-        @apply flex items-center px-7 py-2 hover:bg-blue-100 whitespace-nowrap
+        @apply flex items-center px-6 py-2 hover:bg-blue-100 whitespace-nowrap
     }
     .sliderbar-item-icon{
         @apply filter brightness-90 text-3xl
     }
     .sliderbar-item-span{
-        @apply text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-100
+        @apply font-bold text-xl ml-2 opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-100
+    }
+    .sliderbar-item-p{
+        @apply sliderbar-item-span text-center mt-4
     }
 
 }

@@ -39,6 +39,7 @@ const fetchMemberGet = async () => {
     const fetchdata = await memberGet();
     memberData.value = fetchdata.data
     authStore.setImage(fetchdata.data.image);
+    authStore.setName(fetchdata.data.name);
   } catch (error) {
     serverErrors.value = error.errors;
   }
