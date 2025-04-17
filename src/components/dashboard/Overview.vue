@@ -7,9 +7,8 @@ const categoryList = ref([]);
 const selectedCategoryId = ref("");
 
 const fetchCategory = async () => {
-  const data = await categoryGet();
-  categoryList.value = data.data;
-  console.log(JSON.stringify(categoryList.value));
+  const result = await categoryGet();
+  categoryList.value = result.data;
 };
 
 const filteredCategoryList = computed(() => {

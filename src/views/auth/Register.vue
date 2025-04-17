@@ -65,7 +65,7 @@ const handleRegister = async () => {
     return;
   }
 
-  alert("註冊成功");
+  alert("註冊成功，請至信箱收取驗證信");
   router.push("/login");
 };
 </script>

@@ -1,12 +1,13 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { API_URL } from "@/stores/config.js";
 
 
 export const useAuthStore = defineStore('auth', ()=>{
     
     const token = ref(localStorage.getItem('token') || null);
 
-    const defaultAvatarUrl = `${import.meta.env.VITE_API_URL}/uploads/defaultAvatar.jpg`;
+    const defaultAvatarUrl = `${API_URL}/uploads/defaultAvatar.jpg`;
     const image = ref(localStorage.getItem('avatarUrl') || defaultAvatarUrl);
     const name = ref();
 
@@ -24,7 +25,7 @@ export const useAuthStore = defineStore('auth', ()=>{
     }
 
     const setImage = (newImage) => {
-        image.value = `${import.meta.env.VITE_API_URL}${newImage}`;
+        image.value = `${API_URL}${newImage}`;
         localStorage.setItem('avatarUrl', image.value);
     }
 

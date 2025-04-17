@@ -1,7 +1,7 @@
 <script setup>
 import Navbar from "@/components/home/Navbar.vue";
 import { ref } from "vue";
-import Advertise from "./Advertise.vue";
+import Advertise from "../components/home/Advertise.vue";
 
 const showMenu = ref(false);
 const toggleMenu = () => {

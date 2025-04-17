@@ -1,6 +1,7 @@
 <script setup>
 import loginLogo from "@/assets/jpg/logo.png";
 import router from "@/router";
+import {resendVerifyMail} from "@/api/auth";
 import { useAuthStore } from "@/stores/authStore";
 import { computed, ref } from "vue";
 import { login } from "@/api/auth";
@@ -21,9 +22,9 @@ const errors = computed(() => ({
   email:
     (serverErrors.value.email || !loginData.value.email) && touched.value.email,
   password:
-    (serverErrors.value.password || !loginData.value.password) && touched.value.password,
-  general:
-    serverErrors.value.general,
+    (serverErrors.value.password || !loginData.value.password) &&
+    touched.value.password,
+  general: serverErrors.value.general,
 }));
 
 const handleBlur = (field) => {
@@ -32,28 +33,41 @@ const handleBlur = (field) => {
 };
 
 const handleLogin = async () => {
-
   serverErrors.value = {};
-  try{
+  try {
     const fetchData = await login(loginData.value);
-    if(fetchData.status === "error"){
+
+    if (fetchData.status === "error") {
       serverErrors.value = fetchData.errors || {};
       Object.keys(touched.value).forEach((key) => {
         touched.value[key] = true;
       });
       return;
     }
+
     authStore.login(fetchData.data.token);
     authStore.setImage(fetchData.data.image);
     authStore.setName(fetchData.data.name);
     alert("登入成功");
     router.push("/dashboard");
-
-  }catch(error){
+  } catch (error) {
     console.log(error);
     serverErrors.value = error.errors || {};
   }
+};
 
+const handleresendVerifyMail = async () => {
+  try {
+    const data = await resendVerifyMail(loginData.value);
+    if (data.status === "error") {
+      console.log(data.errors)
+      alert(data.errors.email);
+    } else {
+      alert("驗證信已寄送至您的信箱，請注意查收");
+    }
+  } catch (error) {
+    console.error(error);
+  }
 };
 </script>
 
@@ -64,7 +78,12 @@ const handleLogin = async () => {
       <h2 class="auth-title">會員登入</h2>
     </div>
     <div class="auth-box-form">
-      <form @submit.prevent="handleLogin" class="space-y-6" action="#" method="POST">
+      <form
+        @submit.prevent="handleLogin"
+        class="space-y-6"
+        action="#"
+        method="POST"
+      >
         <div>
           <label for="email" class="auth-label">Email address</label>
           <div class="mt-2">
@@ -106,9 +125,17 @@ const handleLogin = async () => {
           </div>
         </div>
 
-        <div v-for="error in serverErrors" :key="error" class="p-error">
-          {{error}}
+        <div v-for="error in serverErrors" :key="error">
+          <p class="p-error">{{error}}</p>
+          <button
+            v-if="error.includes('尚未驗證')"
+            class="text-blue-500 underline"
+            @click="handleresendVerifyMail"
+          >
+            👉 點我重新寄送驗證信
+          </button>
         </div>
+
         <div>
           <button type="submit" class="button-primary">Sign in</button>
         </div>
@@ -127,6 +154,4 @@ const handleLogin = async () => {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

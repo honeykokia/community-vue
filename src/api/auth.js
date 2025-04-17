@@ -45,13 +45,15 @@ export const register = async (data) => {
   }
 }
 
-export const resendVerifyMail = async() =>{
+export const resendVerifyMail = async(data) =>{
+  const {email} = data;
 
   try {
-    const response = await apiFetch(`${api}/api/user/verify`,{
-      method:"GET",
+    const response = await apiFetch(`${api}/api/user/resendMail`,{
+      method:"POST",
+      body: JSON.stringify({email: email}),
     });
-    return response;
+    return response
   } catch (error) {
     throw error;
   }
