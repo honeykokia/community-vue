@@ -37,9 +37,7 @@ const handleBlur = (field) => {
 
 const handleAddAccount = async () => {
   serverErrors.value = {};
-  console.log(typeof accountData.value.is_public)
   const data = await addAccount(accountData.value);
-  console.log(data);
   if (data.status === "error") {
     serverErrors.value = data.errors || {};
     Object.keys(touched.value).forEach((key) => {
@@ -129,6 +127,11 @@ const handleAddAccount = async () => {
             <option :value="false">否</option>
             <option :value="true">是</option>
           </select>
+        </div>
+
+        <div>
+          <p class="p-error"></p>
+
         </div>
 
         <div class="pb-8">

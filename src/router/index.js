@@ -5,12 +5,13 @@ import Register from "@/views/auth/Register.vue";
 import Member from "@/views/auth/Member.vue";
 import ChangePassword from "@/views/auth/ChangePassword.vue";
 import Dashboard from "@/views/dashboard/Dashboard.vue";
-import Overview from "@/components/dashboard/Overview.vue";
+import RecordAdd from "@/views/dashboard/RecordAdd.vue";
 import AccountList from "@/views/dashboard/AccountList.vue";
 import VerifyEmailSuccess from "@/views/auth/VerifyEmailSuccess.vue";
 import VerifyEmailFail from "@/views/auth/VerifyEmailFail.vue";
 import AccountAdd from "@/views/dashboard/AccountAdd.vue";
 import AccountDetail from "@/views/dashboard/AccountDetail.vue";
+import Overview from "@/views/dashboard/Overview.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,12 +74,12 @@ const router = createRouter({
       children: [
         {
           path: "/dashboard/",
-          component: AccountList,
+          component: Overview,
         },
         {
-          path: "/dashboard/overview",
-          name: "overview",
-          component: Overview,
+          path: "/dashboard/recordadd",
+          name: "recordadd",
+          component: RecordAdd,
         },
         {
           path: "/dashboard/accountAdd",

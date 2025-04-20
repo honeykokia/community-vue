@@ -39,7 +39,6 @@ const changePassword = async () => {
       touched.value[key] = true;
     });
   } else {
-    console.log(fetchData);
     alert("密碼修改成功");
     router.push("/member");
   }

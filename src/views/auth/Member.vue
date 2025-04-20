@@ -74,12 +74,10 @@ const handleSaveData = async () => {
 
   try {
     const data = await memberSave(formData);
-    console.log(memberData.value.image)
     fetchMemberGet();
     alert("更新成功");
     router.push("/dashboard");
   } catch (error) {
-    console.log(error);
     serverErrors.value = error.errors;
   }
 };

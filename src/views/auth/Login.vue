@@ -51,7 +51,6 @@ const handleLogin = async () => {
     alert("登入成功");
     router.push("/dashboard");
   } catch (error) {
-    console.log(error);
     serverErrors.value = error.errors || {};
   }
 };
@@ -60,7 +59,7 @@ const handleresendVerifyMail = async () => {
   try {
     const data = await resendVerifyMail(loginData.value);
     if (data.status === "error") {
-      console.log(data.errors)
+
       alert(data.errors.email);
     } else {
       alert("驗證信已寄送至您的信箱，請注意查收");

@@ -56,7 +56,6 @@ const handleRegister = async () => {
   
   serverErrors.value = {};
   const data = await register(registerData.value);
-  console.log(data);
   if (data.status === "error") {
     serverErrors.value = data.errors || {};
     Object.keys(touched.value).forEach((key) => {

@@ -71,11 +71,9 @@ const handleSaveData = async () => {
   try {
     const accountId = route.params.accountId;
     const data = await updateAccount(accountId, formData);
-    console.log(accountData.value.image);
     alert("更新成功");
     router.push("/dashboard/accountList");
   } catch (error) {
-    console.log(error);
     serverErrors.value = error.errors;
   }
 };
@@ -83,12 +81,12 @@ const handleDeleteAccount = async () => {
   serverErrors.value = {};
   const accountId = route.params.accountId;
   const data = await deleteAccount(accountId);
+  showConfirm.value = false;
   if (data.status === "error") {
-    serverErrors.value = error.errors;
+    serverErrors.value = data.errors;
     return;
   }
-//   alert("刪除成功");
-  showConfirm.value = false;
+
   router.push("/dashboard/accountList");
 };
 </script>
@@ -174,7 +172,7 @@ const handleDeleteAccount = async () => {
         </div>
 
         <p v-if="serverErrors.general" class="p-error">
-          {{ serverErrors.account }}
+          {{ serverErrors.general }}
         </p>
 
         <div class="pb-8">

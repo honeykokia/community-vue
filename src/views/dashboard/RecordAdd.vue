@@ -1,15 +1,50 @@
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
-import { categoryGet } from "@/api/category";
+import { getAllCategory } from "@/api/category";
+import { getAllAccounts } from "@/api/account";
+import { addRecord } from "@/api/record";
 
 const activeType = ref(1); // 1: income, -1: expense
 const categoryList = ref([]);
-const selectedCategoryId = ref("");
+const accountList = ref([]);
+
+const serverErrors = ref({});
+const selectedAccountId = ref("");
+const recordData= ref({
+  category_id: "null",
+  item_price: "",
+  item_date: "",
+  item_note: "",
+});
+
 
 const fetchCategory = async () => {
-  const result = await categoryGet();
-  categoryList.value = result.data;
+  const result = await getAllCategory();
+  if (result.status === "error") {
+    alert("取得失敗，請稍後再試");
+  } else {
+    categoryList.value = result.data;
+  }
+  
 };
+
+const fetchAccount = async () => {
+  const result = await getAllAccounts();
+  if (result.status === "error") {
+    alert("取得失敗，請稍後再試");
+  } else {
+    accountList.value = result.data;
+  }
+};
+
+const fetchAddRecord = async() =>{
+  const result = await addRecord(selectedAccountId.value,recordData.value);
+  if (result.status === "error") {
+    serverErrors.value = result.errors || {};
+  } else {
+    alert("新增成功");
+  }
+}
 
 const filteredCategoryList = computed(() => {
   return categoryList.value.filter((c) => c.type === activeType.value);
@@ -17,10 +52,11 @@ const filteredCategoryList = computed(() => {
 
 onMounted(() => {
   fetchCategory();
+  fetchAccount();
 });
 
 watch(activeType, (newType) => {
-  selectedCategoryId.value ="";
+  selectedAccountId.value ="null";
 });
 </script>
 
@@ -58,9 +94,17 @@ watch(activeType, (newType) => {
               >收支帳戶</label
             >
             <select
+              v-model="selectedAccountId"
               class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600 w-48"
             >
-              <option value="0">零用金</option>
+            <option disabled value="null">請選擇帳戶</option>
+              <option
+                v-for="account in accountList"
+                :key="account.id"
+                :value="account.id"
+              >
+                {{ account.name }}
+              </option>
             </select>
           </div>
           <div class="flex items-center">
@@ -68,6 +112,7 @@ watch(activeType, (newType) => {
               >金額</label
             >
             <input
+              v-model="recordData.item_price"
               class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
               type="number"
             />
@@ -77,10 +122,10 @@ watch(activeType, (newType) => {
               >類別</label
             >
             <select
-              v-model="selectedCategoryId"
+              v-model="recordData.category_id"
               class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600 w-48"
             >
-              <option disabled value="">請選擇類別</option>
+              <option disabled value="null">請選擇類別</option>
               <option
                 v-for="category in filteredCategoryList"
                 :key="category.id"
@@ -95,6 +140,7 @@ watch(activeType, (newType) => {
               >日期</label
             >
             <input
+              v-model="recordData.item_date"
               class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 w-48 focus:outline-indigo-600"
               type="date"
             />
@@ -104,15 +150,16 @@ watch(activeType, (newType) => {
               >備註</label
             >
             <input
+              v-model="recordData.item_note"
               class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
               type="text"
             />
           </div>
         </div>
       </div>
-      <!--右邊圖表  -->
+      <!--右邊圖表
       <div class="p-4 rounded-xl col-span-2 flex flex-col gap-4">
-        <!-- 貼文帳片（可改成選單或上傳） -->
+        貼文帳片（可改成選單或上傳）
         <div class="flex items-center gap-3">
           <img
             src="https://via.placeholder.com/48"
@@ -122,22 +169,22 @@ watch(activeType, (newType) => {
           <span class="text-gray-700 font-medium">你的小帳號名稱</span>
         </div>
 
-        <!-- 貼文標題 -->
+        貼文標題
         <input
           type="text"
           placeholder="輸入貼文標題"
           class="text-xl font-semibold px-3 py-2 border rounded-md focus:outline-indigo-500"
         />
 
-        <!-- 貼文內文 -->
+        貼文內文
         <textarea
           rows="4"
           placeholder="寫點記帳心得..."
           class="w-full h-full px-3 py-2 border rounded-md resize-none focus:outline-indigo-500"
         ></textarea>
-      </div>
+      </div> -->
       <div class="grid justify-center col-span-3 mt-6">
-        <button class="button-primary w-24">儲存</button>
+        <button @click="fetchAddRecord" class="button-primary w-24">儲存</button>
       </div>
     </div>
 

@@ -37,10 +37,14 @@ const handleLogout = () => {
         <span class="sliderbar-item-span"> 登入 </span>
       </RouterLink> -->
       <RouterLink to="/dashboard/" class="sliderbar-item">
+        <span class="sliderbar-item-icon">📊</span>
+        <span class="sliderbar-item-span"> 總覽 </span>
+      </RouterLink>
+      <RouterLink to="/dashboard/accountList" class="sliderbar-item">
         <span class="sliderbar-item-icon">📰</span>
         <span class="sliderbar-item-span"> 帳戶 </span>
       </RouterLink>
-      <RouterLink to="/dashboard/overview" class="sliderbar-item">
+      <RouterLink to="/dashboard/recordadd" class="sliderbar-item">
         <span class="sliderbar-item-icon">💰</span>
         <span class="sliderbar-item-span"> 交易 </span>
       </RouterLink>
