@@ -66,3 +66,26 @@ npm install
 
 # 啟動本地開發伺服器
 npm run dev
+```
+
+## 📋 待完成功能（Frontend Planned Features）
+
+### 組件優化
+- 整理 Vue 元件結構（區分 Pages / Components / Shared）
+- 整理常用 TailwindCSS 樣式，製作可重複使用的元件庫
+
+### 體驗優化
+- 各頁面與表單動作新增 Loading 效果
+- 所有表單增加前端基本驗證（必填、格式檢查）
+- 成功 / 失敗動作後彈出 Toast 提示訊息
+- API錯誤處理與友善錯誤提示畫面
+
+### 功能完善
+- 完成 Record Edit 頁面（載入舊資料、提交修改）
+- 完成 Record 貼文 頁面 (可搜尋、追蹤、留言)
+- 響應式版型優化（手機版、平板版）
+
+### 性能優化
+- 路由分段 (Vue Router Lazy Loading)
+- 主要頁面 Meta資料設定（SEO基本優化）
+
