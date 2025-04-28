@@ -5,7 +5,7 @@ export const getAllCategory = async ()=>{
 
     try {
         
-        const response = await apiFetch(`${api}/api/category/list`,{
+        const response = await apiFetch(`${api}/category`,{
             method:"GET",
         });
 

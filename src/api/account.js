@@ -7,7 +7,7 @@ const api = import.meta.env.VITE_API_URL;
 export const getAllAccounts = async () =>{
 
     try {
-        const response = await apiFetch(`${api}/api/account`,{
+        const response = await apiFetch(`${api}/account`,{
             method:"GET",
         });
         return response;
@@ -20,7 +20,7 @@ export const getAllAccounts = async () =>{
 export const addAccount = async(data) =>{
     const rawData = toRaw(data)
     try {
-        const response = await apiFetch(`${api}/api/account`,{
+        const response = await apiFetch(`${api}/account`,{
             method:"POST",
             body: JSON.stringify(rawData),
         });
@@ -32,7 +32,7 @@ export const addAccount = async(data) =>{
 
 export const getAccount = async(id) =>{
     try {
-        const response = await apiFetch(`${api}/api/account/${id}`,{
+        const response = await apiFetch(`${api}/account/${id}`,{
             method:"GET",
         });
         return response;
@@ -43,7 +43,7 @@ export const getAccount = async(id) =>{
 
 export const updateAccount = async(id,formdata)=>{
   try {
-    const response = await apiFileUpload(`${api}/api/account/${id}`,formdata);
+    const response = await apiFileUpload(`${api}/account/${id}`,formdata);
     return response;
   } catch (error) {
     throw error;
@@ -52,7 +52,7 @@ export const updateAccount = async(id,formdata)=>{
 
 export const deleteAccount = async(id) =>{
     try {
-        const response = await apiFetch(`${api}/api/account/${id}`,{
+        const response = await apiFetch(`${api}/account/${id}`,{
             method:"DELETE",
         });
         return response;

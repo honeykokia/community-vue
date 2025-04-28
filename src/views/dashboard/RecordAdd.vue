@@ -9,12 +9,12 @@ const categoryList = ref([]);
 const accountList = ref([]);
 
 const serverErrors = ref({});
-const selectedAccountId = ref("");
+const selectedAccountId = ref("null");
 const recordData= ref({
-  category_id: "null",
-  item_price: "",
-  item_date: "",
-  item_note: "",
+  categoryId: "null",
+  itemPrice: "",
+  itemDate: "",
+  itemNote: "",
 });
 
 
@@ -38,10 +38,18 @@ const fetchAccount = async () => {
 };
 
 const fetchAddRecord = async() =>{
+
+  if (selectedAccountId.value === "null") {
+    alert("請選擇帳戶");
+    return;
+  }
+
   const result = await addRecord(selectedAccountId.value,recordData.value);
   if (result.status === "error") {
+    console.log(result.errors);
     serverErrors.value = result.errors || {};
   } else {
+    recordData.value ={};
     alert("新增成功");
   }
 }
@@ -112,7 +120,7 @@ watch(activeType, (newType) => {
               >金額</label
             >
             <input
-              v-model="recordData.item_price"
+              v-model="recordData.itemPrice"
               class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
               type="number"
             />
@@ -122,7 +130,7 @@ watch(activeType, (newType) => {
               >類別</label
             >
             <select
-              v-model="recordData.category_id"
+              v-model="recordData.categoryId"
               class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600 w-48"
             >
               <option disabled value="null">請選擇類別</option>
@@ -140,7 +148,7 @@ watch(activeType, (newType) => {
               >日期</label
             >
             <input
-              v-model="recordData.item_date"
+              v-model="recordData.itemDate"
               class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 w-48 focus:outline-indigo-600"
               type="date"
             />
@@ -150,7 +158,7 @@ watch(activeType, (newType) => {
               >備註</label
             >
             <input
-              v-model="recordData.item_note"
+              v-model="recordData.itemNote"
               class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
               type="text"
             />
@@ -187,10 +195,10 @@ watch(activeType, (newType) => {
         <button @click="fetchAddRecord" class="button-primary w-24">儲存</button>
       </div>
     </div>
-
+<!-- 
     <div class="border border-red-30 bg-gray-100 rounded-xl h-64 min-w-full">
       <h1 class="p-4 text-2xl font-bold">🧾最近交易</h1>
-    </div>
+    </div> -->
   </div>
 </template>
 
