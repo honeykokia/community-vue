@@ -26,6 +26,19 @@ export const getRecordByAccountId = async (accountId,page,startDate,endDate) => 
   }
 }
 
+export const updaateRecordById = async (accountId,recordId,data) => {
+  try {
+    const rawData = toRaw(data);
+    const response = await apiFetch(`${api}/account/${accountId}/records/${recordId}`, {
+      method: "PUT",
+      body: JSON.stringify(rawData),
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const deleteRecordById = async (accountId,recordId) => {
   try {
     console.log(accountId,recordId);

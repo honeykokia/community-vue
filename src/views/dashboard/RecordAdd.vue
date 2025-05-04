@@ -10,13 +10,12 @@ const accountList = ref([]);
 
 const serverErrors = ref({});
 const selectedAccountId = ref("null");
-const recordData= ref({
+const recordData = ref({
   categoryId: "null",
   itemPrice: "",
   itemDate: "",
   itemNote: "",
 });
-
 
 const fetchCategory = async () => {
   const result = await getAllCategory();
@@ -25,7 +24,6 @@ const fetchCategory = async () => {
   } else {
     categoryList.value = result.data;
   }
-  
 };
 
 const fetchAccount = async () => {
@@ -37,22 +35,21 @@ const fetchAccount = async () => {
   }
 };
 
-const fetchAddRecord = async() =>{
-
+const fetchAddRecord = async () => {
   if (selectedAccountId.value === "null") {
     alert("請選擇帳戶");
     return;
   }
 
-  const result = await addRecord(selectedAccountId.value,recordData.value);
+  const result = await addRecord(selectedAccountId.value, recordData.value);
   if (result.status === "error") {
     console.log(result.errors);
     serverErrors.value = result.errors || {};
   } else {
-    recordData.value ={};
+    recordData.value = {};
     alert("新增成功");
   }
-}
+};
 
 const filteredCategoryList = computed(() => {
   return categoryList.value.filter((c) => c.type === activeType.value);
@@ -64,7 +61,8 @@ onMounted(() => {
 });
 
 watch(activeType, (newType) => {
-  selectedAccountId.value ="null";
+  recordData.value.categoryId = "null"; // Reset categoryId when type changes
+  selectedAccountId.value = "null";
 });
 </script>
 
@@ -105,7 +103,7 @@ watch(activeType, (newType) => {
               v-model="selectedAccountId"
               class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600 w-48"
             >
-            <option disabled value="null">請選擇帳戶</option>
+              <option disabled value="null">請選擇帳戶</option>
               <option
                 v-for="account in accountList"
                 :key="account.id"
@@ -192,10 +190,12 @@ watch(activeType, (newType) => {
         ></textarea>
       </div> -->
       <div class="grid justify-center col-span-3 mt-6">
-        <button @click="fetchAddRecord" class="button-primary w-24">儲存</button>
+        <button @click="fetchAddRecord" class="button-primary w-24">
+          儲存
+        </button>
       </div>
     </div>
-<!-- 
+    <!-- 
     <div class="border border-red-30 bg-gray-100 rounded-xl h-64 min-w-full">
       <h1 class="p-4 text-2xl font-bold">🧾最近交易</h1>
     </div> -->

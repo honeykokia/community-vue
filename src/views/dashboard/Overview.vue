@@ -2,10 +2,40 @@
 import { onMounted, ref, watch } from "vue";
 import Chart from "chart.js/auto";
 import { getAllAccounts } from "@/api/account";
-import { deleteRecordById, getRecordByAccountId } from "@/api/record";
+import { deleteRecordById, getRecordByAccountId, updaateRecordById } from "@/api/record";
+import RecordEdit from "@/components/modal/recordEdit.vue";
 
+//帳戶變數
 const accountList = ref([]); // 帳戶列表
 const recordList = ref([]); // 帳戶交易列表
+
+//編輯紀錄變數
+const showEditModal = ref(false);
+const selectedRecord = ref(null);
+const openEditModal = (record) => {
+  selectedRecord.value = { ...record }
+  showEditModal.value = true
+}
+
+const saveEditedRecord = async (updatedRecord) => {
+
+  const result = await updaateRecordById(
+    accountData.value.id,
+    updatedRecord.id,
+    updatedRecord
+  );
+  if (result.status === "error") {
+    alert("更新失敗，請稍後再試")
+    return
+  }
+
+  alert("更新成功")
+  // 在這裡呼叫 API 或更新 recordList 中的資料
+  fetchRecordByAccountId(accountData.value.id);
+  showEditModal.value = false
+}
+
+//圖表變數
 const incomeTotal = ref(0); // 收入總額
 const expenseTotal = ref(0); // 支出總額
 const totalPages = ref(0); // 總頁數
@@ -166,7 +196,6 @@ const fetchRecordByAccountId = async (accountId) => {
     console.log(result.errors);
     alert("取得失敗，請稍後再試");
   } else {
-    console.log(result.data);
     recordList.value = result.data.content;
     totalPages.value = result.data.totalPages;
     incomeTotal.value = result.data.incomeTotal || 0;
@@ -192,7 +221,7 @@ const fetchDeleteRecord = async (accountId, recordId) => {
 <template>
   <div class="space-y-10">
     <div class="bg-gray-100 rounded-xl p-4">
-      <div class="grid grid-cols-4 gap-4">
+      <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <div class="bg-white rounded-lg shadow p-4">
           <h3 class="text-lg font-semibold">收入總額</h3>
           <p class="text-2xl font-bold text-green-500">$ {{ incomeTotal }}</p>
@@ -244,6 +273,7 @@ const fetchDeleteRecord = async (accountId, recordId) => {
             <canvas id="pieChart"></canvas>
           </div>
         </div>
+        
         <div class="bg-white rounded-lg shadow p-4">
           <h3 class="text-lg font-semibold">月度趨勢圖</h3>
           <div class="h-[400px] w-full flex justify-center items-center"> 
@@ -260,6 +290,7 @@ const fetchDeleteRecord = async (accountId, recordId) => {
             <tr>
               <th class="px-4 py-2 border-b">日期</th>
               <th class="px-4 py-2 border-b">類型</th>
+              <th class="px-4 py-2 border-b">類別</th>
               <th class="px-4 py-2 border-b">金額</th>
               <th class="px-4 py-2 border-b">備註</th>
               <th class="px-4 py-2 border-b">操作</th>
@@ -276,12 +307,13 @@ const fetchDeleteRecord = async (accountId, recordId) => {
               >
                 {{ record.category.type === 1 ? "收入" : "支出" }}
               </td>
+              <td class="px-4 py-2 border-b">{{ record.category.name }}</td>
               <td class="px-4 py-2 border-b">${{ record.itemPrice }}</td>
               <td class="px-4 py-2 border-b">{{ record.itemNote }}</td>
               <td class="px-4 py-2 border-b">
                 <button
                   class="text-blue-500 hover:underline mr-2"
-                  @click="editRecord(record)"
+                  @click="openEditModal(record)"
                 >
                   編輯
                 </button>
@@ -313,6 +345,13 @@ const fetchDeleteRecord = async (accountId, recordId) => {
       </div>
     </div>
   </div>
+
+  <RecordEdit
+    :show="showEditModal"
+    :record="selectedRecord"
+    @close="showEditModal = false"
+    @save="saveEditedRecord"
+  ></RecordEdit>
 </template>
 
 <style scoped></style>

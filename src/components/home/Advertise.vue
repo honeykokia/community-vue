@@ -11,7 +11,7 @@
         <ul class="mt-6 text-blue-400 space-y-2">
             <li>💰 個人帳戶記帳</li>
             <li>📝 可將記帳以貼文方式分享</li>
-            <li>🤝 追蹤其他人記帳風格 </li>
+            <li>🤝 追蹤其他人帳戶取得最新優惠 </li>
         </ul>
     </div>
 </template>

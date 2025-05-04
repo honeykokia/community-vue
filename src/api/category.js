@@ -4,7 +4,6 @@ const api = import.meta.env.VITE_API_URL;
 export const getAllCategory = async ()=>{
 
     try {
-        
         const response = await apiFetch(`${api}/category`,{
             method:"GET",
         });
