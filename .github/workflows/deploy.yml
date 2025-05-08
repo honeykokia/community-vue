@@ -42,4 +42,4 @@ jobs:
             docker stop projecta-fe || true
             docker rm projecta-fe || true
             docker build -t projecta-fe .
-            docker run -d --name projecta-frontend -p 8083:80 projecta-fe
+            docker run -d --name projecta-fe -p 8083:80 projecta-fe
