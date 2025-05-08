@@ -11,8 +11,9 @@ export const apiFetch = async (url, options={}) => {
     'Content-Type': 'application/json',
     ...options.headers
   }
-  
+
   if (token) {
+    
     headers['Authorization'] = `Bearer ${token}`;
   }
 
@@ -21,8 +22,8 @@ export const apiFetch = async (url, options={}) => {
 
       if (response.status === 401) {
         authStore.logout();
-        router.push({name: 'login'});
-        throw new CustomError({email: "逾時請重新登入"});
+        router.push("/login")
+        throw new CustomError({general: "逾時請重新登入"});
       } 
       return response.json();
 
@@ -32,7 +33,7 @@ export const apiFetch = async (url, options={}) => {
       if(typeof error === "object" && error.errors){
         throw error;
       }else{
-        throw new CustomError({email: "發生錯誤"})
+        throw new CustomError({general: "發生錯誤"})
       }
     });
 };
