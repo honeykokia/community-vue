@@ -48,10 +48,10 @@ const handleLogout = () => {
         <span class="sliderbar-item-icon">💰</span>
         <span class="sliderbar-item-span"> 交易 </span>
       </RouterLink>
-      <a href="#" class="sliderbar-item">
+      <RouterLink to="/dashboard/post" class="sliderbar-item">
         <span class="sliderbar-item-icon">🆕</span>
         <span class="sliderbar-item-span"> 貼文 </span>
-      </a>
+      </RouterLink>
       <a
         href="#"
         v-if="authStore.token"
