@@ -12,6 +12,7 @@ import VerifyEmailFail from "@/views/auth/VerifyEmailFail.vue";
 import AccountAdd from "@/views/dashboard/AccountAdd.vue";
 import AccountDetail from "@/views/dashboard/AccountDetail.vue";
 import Overview from "@/views/dashboard/Overview.vue";
+import Post from "@/views/dashboard/Post.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -94,6 +95,11 @@ const router = createRouter({
           path: "/dashboard/accountDetail/:accountId",
           name: "accountDetail",
           component: AccountDetail,
+        },
+        {
+          path: "/dashboard/post",
+          name: "post",
+          component: Post,
         }
       ],
     },
