@@ -237,7 +237,7 @@ const fetchDeleteRecord = async (accountId, recordId) => {
           </p>
         </div>
         <div class="bg-white rounded-lg shadow p-4">
-          <h3 class="text-lg font-semibold">帳戶選擇</h3>
+          <h3 class="text-lg font-semibold">帳戶</h3>
           <select
             v-model="accountData.id"
             class="border rounded p-2 my-2 w-full"
