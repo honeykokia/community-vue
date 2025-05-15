@@ -16,13 +16,23 @@
 - Vue Router（前端路由）
 
 ## 🖥️ 畫面簡介 (Screenshots)
-> 簡單展示主要功能頁面（此處可以放截圖，或之後補上）
+- 首頁
+![首頁](https://github.com/user-attachments/assets/723e9820-d2e2-4cb6-bf4f-ce35c49e64cb)
+
 - 登入 / 註冊頁面
+![登入畫面](https://github.com/user-attachments/assets/28faac0d-89a5-47ed-afcb-0e4d59a0f2d1)
+![註冊畫面](https://github.com/user-attachments/assets/6a7e895a-c7fb-483b-9af3-a453fd3068ae)
+
 - 帳戶列表與詳細頁面
+![帳戶列表](https://github.com/user-attachments/assets/06806810-ef36-426a-80c0-719162310696)
+![帳戶詳細資料](https://github.com/user-attachments/assets/397ac8b2-0f09-4149-a5d6-7c427f938a12)
+
 - 記帳紀錄總覽（Overview）
+![總覽](https://github.com/user-attachments/assets/8df89e4e-a012-4127-80cd-d4b52875c3b4)
+
 - 記帳明細新增 / 編輯
-- 貼文牆 (Record Wall)
-- 帳戶搜尋 / 追蹤系統
+![交易建立](https://github.com/user-attachments/assets/55bae8aa-afbc-484f-90d7-e9f3e9014495)
+![交易列表](https://github.com/user-attachments/assets/9e3ada9a-7dda-40fe-ad2d-eb79736d9098)
 
 
 ## 📡 API 串接說明 (API Connection)
