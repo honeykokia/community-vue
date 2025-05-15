@@ -21,27 +21,27 @@ jobs:
         run: |
           npm install
           npm run build
+      
+      - name: 📦 壓縮 dist 資料夾
+        run: tar -czf dist.tar.gz dist
 
-      - name: 📤 Upload dist & Dockerfile to GCP
+      - name: 📤 傳送壓縮檔到 GCP
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.GCP_HOST }}
-          username: ${{ secrets.GCP_USER }}
-          key: ${{ secrets.GCP_SSH_KEY }}
-          source: "dist,Dockerfile,nginx.conf"
+          source: "dist.tar.gz"
           target: "/home/${{ secrets.GCP_USER }}/projectA-frontend"
 
-      - name: 🧪 檢查 GCP dist 資料夾內容
+      - name: 🚀 SSH 解壓 dist
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.GCP_HOST }}
           username: ${{ secrets.GCP_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
           script: |
-            echo "[dist 檔案列表]"
-            ls -lh ~/projectA-frontend/dist
-            echo "[index.html]"
-            cat ~/projectA-frontend/dist/index.html | head -n 5
+            cd ~/projectA-frontend
+            rm -rf dist
+            tar -xzf dist.tar.gz
+            ls dist
 
       - name: 🚀 SSH deploy on GCP
         uses: appleboy/ssh-action@v1.0.3

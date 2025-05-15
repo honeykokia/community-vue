@@ -69,7 +69,7 @@ watch(activeType, (newType) => {
 <template>
   <div class="mt-4 space-y-10">
     <div
-      class="border border-red-30 p-4 bg-gray-100 rounded-xl min-w-full grid grid-cols-1 md:grid-cols-3"
+      class="border border-red-30 p-4 bg-gray-100 rounded-xl w-full grid grid-cols-1 md:grid-cols-3"
     >
       <!--左邊表單  -->
       <div>
@@ -101,7 +101,7 @@ watch(activeType, (newType) => {
             >
             <select
               v-model="selectedAccountId"
-              class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600 w-48"
+              class="rounded-md px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600 w-auto"
             >
               <option disabled value="null">請選擇帳戶</option>
               <option
