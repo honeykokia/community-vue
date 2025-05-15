@@ -6,7 +6,6 @@ import { ref } from "vue";
 
 const authStore = useAuthStore();
 
-
 const handleLogout = () => {
   authStore.logout();
   router.push("/");
