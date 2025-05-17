@@ -43,13 +43,17 @@ watch(
       editedRecord.itemDate = newRecord.itemDate;
       editedRecord.categoryId = newRecord.category.id;
       activeType.value = newRecord.category.type;
-      console.log(JSON.stringify(editedRecord));
     }
   },
   { immediate: true }
 );
 
+let isFirstRun = true;
 watch(activeType, (newType) => {
+  if (isFirstRun) {
+    isFirstRun = false;
+    return;
+  }
   editedRecord.categoryId = null; // Reset categoryId when type changes
 });
 

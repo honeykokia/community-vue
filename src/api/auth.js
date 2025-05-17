@@ -92,3 +92,43 @@ export const memberChangePassword = async(data)=>{
     throw error;
   }
 }
+
+export const forgetPasswordRequest = async(data) => {
+  try {
+    const rawData = {"email": data};
+    const response = await apiFetch(`${api}/user/forgetPassword/request`, {
+      method: "POST",
+      body: JSON.stringify(rawData),
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+export const forgetPasswordVerify = async(data) => {
+  try {
+    const rawData = toRaw(data);
+    const response = await apiFetch(`${api}/user/forgetPassword/verify`, {
+      method: "POST",
+      body: JSON.stringify(rawData),
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const forgetPasswordReset = async(data) => {
+  try {
+    const rawData = toRaw(data);
+    const response = await apiFetch(`${api}/user/forgetPassword/reset`, {
+      method: "PUT",
+      body: JSON.stringify(rawData),
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
