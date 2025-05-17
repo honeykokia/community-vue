@@ -43,6 +43,9 @@
 - **POST /user/register** — 註冊新帳號
 - **GET /user/verify** — 信箱驗證（透過信中連結）
 - **POST /user/resendMail** — 重新寄送驗證信
+- **POST /user/forgetpassword/request** — 寄送驗證碼
+- **POST /user/forgetpassword/verify** — 驗證驗證碼
+- **POST /user/forgetpassword/reset** — 使用者修改密碼
 
 ### 會員系統 (Member System)
 - **GET /member** — 取得目前登入使用者資料（初始化資料）
