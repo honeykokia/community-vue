@@ -103,11 +103,11 @@ const handleresendVerifyMail = async () => {
           <div class="flex items-center justify-between">
             <label for="password" class="auth-label">Password</label>
             <div class="text-sm">
-              <a
-                href="#"
-                class="font-semibold text-indigo-600 hover:text-indigo-500"
-                >Forgot password?</a
-              >
+              <RouterLink
+                to="/forgetpassword"
+                class="font-semibold text-indigo-600 hover:text-indigo-500">
+                Forgot password?
+              </RouterLink>
             </div>
           </div>
           <div class="mt-2">

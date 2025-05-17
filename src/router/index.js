@@ -13,6 +13,9 @@ import AccountAdd from "@/views/dashboard/AccountAdd.vue";
 import AccountDetail from "@/views/dashboard/AccountDetail.vue";
 import Overview from "@/views/dashboard/Overview.vue";
 import Post from "@/views/dashboard/Post.vue";
+import ForgetPassword from "@/views/auth/ForgetPassword.vue";
+import ForgetPasswordVerify from "@/views/auth/ForgetPasswordVerify.vue";
+import ForgetPasswordReset from "@/views/auth/ForgetPasswordReset.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +60,21 @@ const router = createRouter({
       path: "/register",
       name: "register",
       component: Register,
+    },
+    {
+      path: "/forgetpassword",
+      name: "forgetpassword",
+      component: ForgetPassword,
+    },
+    {
+      path: "/forgetpassword/verify/:verifytoken",
+      name: "forgetpassword.verify",
+      component: ForgetPasswordVerify
+    },
+    {
+      path: "/forgetpassword/reset/:resettoken",
+      name: "forgetpassword.reset",
+      component: ForgetPasswordReset,
     },
     {
       path: "/verifySuccess",

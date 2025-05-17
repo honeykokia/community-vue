@@ -207,6 +207,9 @@ const handleRegister = async () => {
 
         <div class="pb-8">
           <button type="submit" class="button-primary">Register</button>
+          <button @click="router.push('/login')" class="mt-2 text-blue-500 hover:underline text-sm">
+            ← 返回
+          </button>
         </div>
       </form>
     </div>
