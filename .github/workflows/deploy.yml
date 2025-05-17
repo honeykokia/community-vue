@@ -25,16 +25,6 @@ jobs:
       - name: 📦 壓縮 dist 資料夾
         run: tar -czf dist.tar.gz dist
 
-      - name: 🧪 SSH 檢查壓縮檔大小
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.GCP_HOST }}
-          username: ${{ secrets.GCP_USER }}
-          key: ${{ secrets.GCP_SSH_KEY }}
-          script: |
-            cd ~/projectA-frontend
-            ls -lh dist.tar.gz
-
       - name: 🧹 刪除舊的壓縮檔與 dist 資料夾
         uses: appleboy/ssh-action@v1.0.3
         with:
