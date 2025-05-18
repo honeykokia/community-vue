@@ -25,16 +25,6 @@ jobs:
       - name: 📦 壓縮 dist 資料夾
         run: tar -czf dist.tar.gz dist
 
-      - name: 🧹 刪除舊的壓縮檔與 dist 資料夾
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.GCP_HOST }}
-          username: ${{ secrets.GCP_USER }}
-          key: ${{ secrets.GCP_SSH_KEY }}
-          script: |
-            cd ~/projectA-frontend
-            rm -rf dist dist.tar.gz
-
       - name: 📤 傳送壓縮檔到 GCP
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -45,7 +35,7 @@ jobs:
           source: "dist.tar.gz"
           target: "/home/${{ secrets.GCP_USER }}/projectA-frontend"
 
-      - name: 🚀 SSH 解壓 dist
+      - name: 🚀 SSH 解壓 dist（並先清空）
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.GCP_HOST }}
@@ -53,7 +43,9 @@ jobs:
           key: ${{ secrets.GCP_SSH_KEY }}
           script: |
             cd ~/projectA-frontend
+            rm -rf dist
             tar -xzf dist.tar.gz
+            rm -rf dist.tar.gz
             ls dist
 
       - name: 🚀 SSH deploy on GCP
