@@ -52,6 +52,7 @@ const handleBlur = (field) => {
   touched.value[field] = true;
 };
 
+
 const handleRegister = async () => {
   const hasError = Object.keys(errors.value).some((key)=> errors.value[key]);
   if(hasError) return;
