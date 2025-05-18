@@ -19,7 +19,7 @@ jobs:
 
       - name: ✏️ 建立 .env.production
         run: |
-          echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" > .env.production
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env.production
 
       - name: 📦 Install dependencies & Build
         run: |
