@@ -3,7 +3,10 @@ import accountpng from "@/assets/jpg/account.png";
 import { computed, ref } from "vue";
 import { addAccount } from "@/api/account";
 import router from "@/router";
+import { useToast } from "vue-toastification";
+
 const accountPic = ref(accountpng);
+const toast = useToast();
 
 const serverErrors = ref({});
 const touched = ref({
@@ -45,8 +48,7 @@ const handleAddAccount = async () => {
     });
     return;
   }
-
-//   alert("新增成功");
+  toast.success("新增成功");
   router.push("/dashboard/accountList");
 };
 </script>
@@ -123,7 +125,12 @@ const handleAddAccount = async () => {
 
         <div>
           <label for="is_public" class="auth-label">是否公開</label>
-          <select v-model="accountData.is_public" class="select-primary" name="is_public" id="is_public">
+          <select
+            v-model="accountData.is_public"
+            class="select-primary"
+            name="is_public"
+            id="is_public"
+          >
             <option :value="false">否</option>
             <option :value="true">是</option>
           </select>
@@ -131,7 +138,6 @@ const handleAddAccount = async () => {
 
         <div>
           <p class="p-error"></p>
-
         </div>
 
         <div class="pb-8">

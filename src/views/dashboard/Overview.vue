@@ -4,7 +4,9 @@ import Chart from "chart.js/auto";
 import { getAllAccounts } from "@/api/account";
 import { deleteRecordById, getRecordByAccountId, updaateRecordById } from "@/api/record";
 import RecordEdit from "@/components/modal/recordEdit.vue";
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
 //帳戶變數
 const accountList = ref([]); // 帳戶列表
 const recordList = ref([]); // 帳戶交易列表
@@ -25,11 +27,11 @@ const saveEditedRecord = async (updatedRecord) => {
     updatedRecord
   );
   if (result.status === "error") {
-    alert("更新失敗，請稍後再試")
+    toast.error("更新失敗，請稍後再試");
     return
   }
 
-  alert("更新成功")
+  toast.success("更新成功");
   // 在這裡呼叫 API 或更新 recordList 中的資料
   fetchRecordByAccountId(accountData.value.id);
   showEditModal.value = false
@@ -176,7 +178,7 @@ watch(recordList, () => {
 const fetchAccount = async () => {
   const result = await getAllAccounts();
   if (result.status === "error") {
-    alert("取得失敗，請稍後再試");
+    toast.error("取得帳戶失敗，請稍後再試");
   } else {
     accountList.value = result.data;
     if (accountList.value.length > 0) {
@@ -194,7 +196,7 @@ const fetchRecordByAccountId = async (accountId) => {
   );
   if (result.status === "error") {
     console.log(result.errors);
-    alert("取得失敗，請稍後再試");
+    toast.error("取得帳戶失敗，請稍後再試");
   } else {
     recordList.value = result.data.content;
     totalPages.value = result.data.totalPages;
@@ -209,10 +211,9 @@ const fetchRecordByAccountId = async (accountId) => {
 const fetchDeleteRecord = async (accountId, recordId) => {
   const data = await deleteRecordById(accountId, recordId);
   if (data.status === "error") {
-    console.log(data.errors);
-    alert("刪除失敗，請稍後再試");
+    toast.error("刪除失敗，請稍後再試");
   } else {
-    alert("刪除成功");
+    toast.success("刪除成功");
     fetchRecordByAccountId(accountId);
   }
 };

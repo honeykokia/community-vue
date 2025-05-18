@@ -5,8 +5,10 @@ import {resendVerifyMail} from "@/api/auth";
 import { useAuthStore } from "@/stores/authStore";
 import { computed, ref } from "vue";
 import { login } from "@/api/auth";
+import { useToast } from "vue-toastification";
 
 const authStore = useAuthStore();
+const toast = useToast();
 const logoJpg = ref(loginLogo);
 
 const serverErrors = ref({});
@@ -48,7 +50,7 @@ const handleLogin = async () => {
     authStore.login(fetchData.data.token);
     authStore.setImage(fetchData.data.image);
     authStore.setName(fetchData.data.name);
-    alert("登入成功");
+    toast.success("登入成功！")
     router.push("/dashboard");
   } catch (error) {
     serverErrors.value = error.errors || {};
@@ -62,7 +64,7 @@ const handleresendVerifyMail = async () => {
 
       alert(data.errors.email);
     } else {
-      alert("驗證信已寄送至您的信箱，請注意查收");
+      toast.success("驗證信已寄送至您的信箱，請注意查收");
     }
   } catch (error) {
     console.error(error);

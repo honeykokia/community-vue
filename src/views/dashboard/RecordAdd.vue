@@ -3,7 +3,10 @@ import { computed, onMounted, ref, watch } from "vue";
 import { getAllCategory } from "@/api/category";
 import { getAllAccounts } from "@/api/account";
 import { addRecord } from "@/api/record";
+import { useToast } from "vue-toastification";
 
+
+const toast = useToast();
 const activeType = ref(1); // 1: income, -1: expense
 const categoryList = ref([]);
 const accountList = ref([]);
@@ -20,7 +23,7 @@ const recordData = ref({
 const fetchCategory = async () => {
   const result = await getAllCategory();
   if (result.status === "error") {
-    alert("取得失敗，請稍後再試");
+    toast.error("取得類別失敗，請稍後再試");
   } else {
     categoryList.value = result.data;
   }
@@ -29,7 +32,7 @@ const fetchCategory = async () => {
 const fetchAccount = async () => {
   const result = await getAllAccounts();
   if (result.status === "error") {
-    alert("取得失敗，請稍後再試");
+    toast.error("取得帳戶失敗，請稍後再試");
   } else {
     accountList.value = result.data;
   }
@@ -37,7 +40,7 @@ const fetchAccount = async () => {
 
 const fetchAddRecord = async () => {
   if (selectedAccountId.value === "null") {
-    alert("請選擇帳戶");
+    toast.error("請選擇帳戶");
     return;
   }
 
@@ -47,7 +50,7 @@ const fetchAddRecord = async () => {
     serverErrors.value = result.errors || {};
   } else {
     recordData.value = {};
-    alert("新增成功");
+    toast.success("新增成功");
   }
 };
 

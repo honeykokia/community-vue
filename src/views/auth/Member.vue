@@ -4,7 +4,9 @@ import { computed, onMounted, ref } from "vue";
 import { memberGet, memberSave } from "@/api/auth";
 import { useAuthStore } from "@/stores/authStore";
 import router from "@/router";
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
 const logoJpg = ref(logo);
 const authStore = useAuthStore();
 const selectedFile = ref(null);
@@ -75,7 +77,7 @@ const handleSaveData = async () => {
   try {
     const data = await memberSave(formData);
     fetchMemberGet();
-    alert("更新成功");
+    toast.success("更新成功");
     router.push("/dashboard");
   } catch (error) {
     serverErrors.value = error.errors;

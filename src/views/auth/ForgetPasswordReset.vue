@@ -4,6 +4,8 @@ import { computed, onMounted, ref } from "vue";
 import { forgetPasswordReset, memberChangePassword } from "@/api/auth";
 import router from "@/router";
 import { useRoute } from "vue-router";
+import { useToast } from "vue-toastification";
+const toast = useToast();
 const logoJpg = ref(logo);
 const serverErrors = ref({});
 const changeData = ref({
@@ -36,7 +38,8 @@ const changePassword = async () => {
       touched.value[key] = true;
     });
   } else {
-    alert("密碼修改成功");
+
+    toast.success("密碼修改成功");
     router.push("/login");
   }
 };

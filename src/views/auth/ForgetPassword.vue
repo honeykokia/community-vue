@@ -3,7 +3,9 @@ import { forgetPasswordRequest } from "@/api/auth";
 import webLogo from "@/assets/jpg/logo.png";
 import router from "@/router";
 import { computed, onMounted, ref } from "vue";
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
 const email = ref("");
 const touched = ref(false);
 const verifyToken = ref("");
@@ -20,7 +22,7 @@ const handleForgetpassword = async() =>{
         return;
     }
     verifyToken.value = result.data.verifyToken;
-    alert("驗證碼已發送至您的信箱");
+    toast.success("驗證碼已發送至您的信箱");
     router.push(`/forgetpassword/verify/${verifyToken.value}`);
     
 }

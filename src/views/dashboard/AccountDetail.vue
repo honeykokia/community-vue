@@ -6,7 +6,9 @@ import { getAccount, updateAccount, deleteAccount } from "@/api/account";
 import { API_URL } from "@/stores/config.js";
 import router from "@/router";
 import CustomConfirm from "@/components/modal/customConfirm.vue";
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
 const accountPic = ref(accountpng);
 const selectedFile = ref(null);
 const accountData = ref({
@@ -24,7 +26,7 @@ onMounted(async () => {
   const accountId = route.params.accountId;
   const result = await getAccount(accountId);
   if (result.status === "error") {
-    alert("取得失敗，請稍後再試");
+    toast.error("取得失敗，請稍後再試");
   } else {
     accountData.value = result.data;
   }
@@ -71,7 +73,7 @@ const handleSaveData = async () => {
   try {
     const accountId = route.params.accountId;
     const data = await updateAccount(accountId, formData);
-    alert("更新成功");
+    toast.success("更新成功");
     router.push("/dashboard/accountList");
   } catch (error) {
     serverErrors.value = error.errors;
