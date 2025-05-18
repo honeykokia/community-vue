@@ -22,6 +22,7 @@ const handleForgetpassword = async() =>{
     verifyToken.value = result.data.verifyToken;
     alert("驗證碼已發送至您的信箱");
     router.push(`/forgetpassword/verify/${verifyToken.value}`);
+    
 }
 
 
