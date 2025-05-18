@@ -5,7 +5,9 @@ import router from "@/router";
 import { computed, onMounted, ref } from "vue";
 import VerifyEmailFail from "./VerifyEmailFail.vue";
 import { useRoute } from "vue-router";
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
 const touched = ref(false);
 const verifyData = ref({
   verifyToken: "",
@@ -36,7 +38,7 @@ const handleVerifyCode = async () => {
     return;
   }
   resetToken.value= result.data.resetToken;
-  alert("驗證碼正確");
+  toast.success("驗證碼正確");
   router.push(`/forgetpassword/reset/${resetToken.value}`)
 
 };

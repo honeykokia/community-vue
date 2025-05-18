@@ -3,13 +3,15 @@ import { getAllAccounts } from '@/api/account';
 import router from '@/router';
 import { onMounted, ref } from 'vue'
 import { API_URL } from "@/stores/config.js";
+import { useToast } from 'vue-toastification';
 
+const toast = useToast();
 const accountList = ref([]);
 
 const fetchGetAllAccounts = async () =>{
     const result = await getAllAccounts()
     if(result.status === "error"){
-      alert("取得失敗，請稍後再試")
+      toast.error("取得失敗，請稍後再試")
     }
     else{
       accountList.value = result.data;

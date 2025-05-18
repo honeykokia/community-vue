@@ -3,8 +3,10 @@ import logo from "@/assets/jpg/logo.png";
 import router from "@/router";
 import { computed, ref } from "vue";
 import { register } from "@/api/auth";
+import { useToast } from "vue-toastification";
 
 const api = import.meta.env.VITE_API_URL;
+const toast = useToast();
 
 const logoJpg = ref(logo);
 const serverErrors = ref({});
@@ -64,7 +66,7 @@ const handleRegister = async () => {
     return;
   }
 
-  alert("註冊成功，請至信箱收取驗證信");
+  toast.success("註冊成功，請至信箱收取驗證信");
   router.push("/login");
 };
 </script>
