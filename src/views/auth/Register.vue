@@ -218,4 +218,6 @@ const handleRegister = async () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>
