@@ -12,14 +12,14 @@ const serverErrors = ref({});
 const touched = ref({
   name: false,
   description: false,
-  initial_amount: false,
+  initialAmount: false,
 });
 
 const accountData = ref({
   name: "",
   description: "",
-  initial_amount: "",
-  is_public: false,
+  initialAmount: "",
+  isPublic: false,
 });
 
 const errors = computed(() => ({
@@ -28,9 +28,9 @@ const errors = computed(() => ({
   description:
     (serverErrors.value.description || !accountData.value.description) &&
     touched.value.description,
-  initial_amount:
-    (serverErrors.value.initial_amount || !accountData.value.initial_amount) &&
-    touched.value.initial_amount,
+  initialAmount:
+    (serverErrors.value.initialAmount || !accountData.value.initialAmount) &&
+    touched.value.initialAmount,
 }));
 
 const handleBlur = (field) => {
@@ -109,27 +109,27 @@ const handleAddAccount = async () => {
           <label for="initial_amount" class="auth-label">帳戶金額</label>
           <div class="mt-2">
             <input
-              v-model="accountData.initial_amount"
+              v-model="accountData.initialAmount"
               v-on:blur="handleBlur('initial_amount')"
               type="number"
               name="initial_amount"
               id="initial_amount"
               class="input-primary"
-              :class="{ 'input-error': errors.initial_amount }"
+              :class="{ 'input-error': errors.initialAmount }"
             />
           </div>
-          <p v-if="errors.initial_amount" class="p-error">
-            {{ serverErrors.initial_amount || "請輸入帳戶金額" }}
+          <p v-if="errors.initialAmount" class="p-error">
+            {{ serverErrors.initialAmount || "請輸入帳戶金額" }}
           </p>
         </div>
 
         <div>
           <label for="is_public" class="auth-label">是否公開</label>
           <select
-            v-model="accountData.is_public"
+            v-model="accountData.isPublic"
             class="select-primary"
-            name="is_public"
-            id="is_public"
+            name="isPublic"
+            id="isPublic"
           >
             <option :value="false">否</option>
             <option :value="true">是</option>

@@ -15,8 +15,8 @@ const accountData = ref({
   name: "",
   description: "",
   image: "",
-  initial_amount: "",
-  is_public: "",
+  initialAmount: "",
+  isPublic: "",
 });
 const serverErrors = ref({});
 const route = useRoute();
@@ -57,8 +57,8 @@ const handleSaveData = async () => {
           name: accountData.value.name,
           description: accountData.value.description,
           image: accountData.value.image,
-          initial_amount: accountData.value.initial_amount,
-          is_public: accountData.value.is_public,
+          initial_amount: accountData.value.initialAmount,
+          is_public: accountData.value.isPublic,
         }),
       ],
       {
@@ -153,21 +153,21 @@ const handleDeleteAccount = async () => {
         </div>
 
         <div>
-          <label for="initial_amount" class="auth-label">帳戶金額</label>
+          <label for="initialAmount" class="auth-label">帳戶金額</label>
           <div class="mt-2">
             <input
-              v-model="accountData.initial_amount"
+              v-model="accountData.initialAmount"
               type="number"
-              name="initial_amount"
-              id="initial_amount"
+              name="initialAmount"
+              id="initialAmount"
               class="input-primary"
             />
           </div>
         </div>
 
         <div>
-          <label for="is_public" class="auth-label">是否公開</label>
-          <select v-model="accountData.is_public" class="select-primary" name="is_public" id="is_public">
+          <label for="isPublic" class="auth-label">是否公開</label>
+          <select v-model="accountData.isPublic" class="select-primary" name="isPublic" id="isPublic">
             <option :value="false">否</option>
             <option :value="true">是</option>
           </select>

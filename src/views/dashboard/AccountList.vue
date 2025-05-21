@@ -37,7 +37,7 @@ onMounted(()=>{
       <div @click="getAccount(account)" v-for="account in accountList" class="border border-gray-600 rounded-lg w-36 h-36 flex flex-col items-center justify-center cursor-pointer">
         <img :src='`${API_URL}${account.image}`' alt="" class="w-16 h-16 mb-2" />
         <h1 class="text-lg font-bold text-center break-text whitespace-normal line-clamp-1">{{ account.name }}</h1>
-        <p class="text-sm text-gray-500">${{account.initial_amount}}</p>
+        <p class="text-sm text-gray-500">${{account.initialAmount}}</p>
       </div>
       <div @click="addAccount" class="border border-gray-600 rounded-lg w-36 h-36 flex flex-col items-center justify-center cursor-pointer">
         <img :src='`${API_URL}/uploads/defaultAccountAdd.jpg`' alt="" class="w-24 h-24" />
