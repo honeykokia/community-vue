@@ -52,7 +52,7 @@ const accountData = ref({
   // 帳戶資料
   id: "",
   name: "",
-  initial_amount: "",
+  initialAmount: "",
 });
 
 let pieChart = null;
@@ -154,7 +154,7 @@ watch(
     const selected = accountList.value.find((acc) => acc.id === newId);
     if (selected) {
       accountData.value.name = selected.name;
-      accountData.value.initial_amount = selected.initial_amount;
+      accountData.value.initialAmount = selected.initialAmount;
       currentPage.value = 1;
       fetchRecordByAccountId(newId);
       drawPieChart();
@@ -234,7 +234,7 @@ const fetchDeleteRecord = async (accountId, recordId) => {
         <div class="bg-white rounded-lg shadow p-4">
           <h3 class="text-lg font-semibold">結餘</h3>
           <p class="text-2xl font-bold text-blue-500">
-            $ {{ accountData.initial_amount - expenseTotal + incomeTotal }}
+            $ {{ accountData.initialAmount - expenseTotal + incomeTotal }}
           </p>
         </div>
         <div class="bg-white rounded-lg shadow p-4">
