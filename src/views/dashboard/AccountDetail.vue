@@ -57,8 +57,8 @@ const handleSaveData = async () => {
           name: accountData.value.name,
           description: accountData.value.description,
           image: accountData.value.image,
-          initial_amount: accountData.value.initialAmount,
-          is_public: accountData.value.isPublic,
+          initialAmount: accountData.value.initialAmount,
+          isPublic: accountData.value.isPublic,
         }),
       ],
       {
