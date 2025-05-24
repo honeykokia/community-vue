@@ -43,10 +43,22 @@ const fetchAddRecord = async () => {
     toast.error("請選擇帳戶");
     return;
   }
+  if (recordData.value.categoryId === "null") {
+    toast.error("請選擇類別");
+    return;
+  }
+  if (!recordData.value.itemPrice || recordData.value.itemPrice <= 0) {
+    toast.error("請輸入正確的金額");
+    return;
+  }
+  if (!recordData.value.itemDate) {
+    toast.error("請選擇日期");
+    return;
+  }
+  serverErrors.value = {}; // Reset server errors before submission
 
   const result = await addRecord(selectedAccountId.value, recordData.value);
   if (result.status === "error") {
-    console.log(result.errors);
     serverErrors.value = result.errors || {};
   } else {
     recordData.value = {};
