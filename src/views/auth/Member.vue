@@ -74,14 +74,16 @@ const handleSaveData = async () => {
     formData.append("file", selectedFile.value);
   }
 
-  try {
-    const data = await memberSave(formData);
+
+    const result = await memberSave(formData);
     fetchMemberGet();
+
+    if (result.status === "error") {
+      serverErrors.value = result.errors || {};
+      return;
+    }
     toast.success("更新成功");
     router.push("/dashboard");
-  } catch (error) {
-    serverErrors.value = error.errors;
-  }
 };
 
 const changePassword = () =>{
@@ -177,8 +179,8 @@ const changePassword = () =>{
           </div>
         </div>
         
-        <p v-if="serverErrors.general" class="p-error">
-          {{ serverErrors.general }}
+        <p v-if="serverErrors.general || serverErrors.file" class="p-error">
+          {{ serverErrors.email || serverErrors.file }}
         </p>
         <div>
           <button type="button" class="button-primary" @click="changePassword">修改密碼</button>
