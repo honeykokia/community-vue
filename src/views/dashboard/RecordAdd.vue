@@ -63,6 +63,7 @@ const fetchAddRecord = async () => {
   } else {
     recordData.value = {};
     toast.success("新增成功");
+    
   }
 };
 
