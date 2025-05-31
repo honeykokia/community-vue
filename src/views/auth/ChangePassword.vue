@@ -117,6 +117,9 @@ const changePassword = async () => {
             </p>
           </div>
         </div>
+        <p v-if="errors.email" class="p-error">
+          {{ serverErrors.email }}
+        </p>
         <div>
           <button type="submit" @click="changePassword" class="button-primary">
             確認
