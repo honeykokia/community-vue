@@ -17,7 +17,7 @@ const memberData = ref({
   birthday: "",
   email: "",
   gender: "",
-  password: "",
+  // password: "",
 });
 
 const imageUrl = computed(() => {
@@ -62,7 +62,7 @@ const handleSaveData = async () => {
           name: memberData.value.name,
           birthday: memberData.value.birthday,
           email: memberData.value.email,
-          password: memberData.value.password,
+          // password: memberData.value.password,
         }),
       ],
       {
