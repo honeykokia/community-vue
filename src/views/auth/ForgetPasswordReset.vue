@@ -101,6 +101,10 @@ onMounted(() => {
             </p>
           </div>
         </div>
+
+        <p v-if="errors.email" class="p-error">
+          {{ serverErrors.email || "請勿修改重設密碼連結" }}
+        </p>
         <div>
           <button type="submit" @click="changePassword" class="button-primary">
             確認

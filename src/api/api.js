@@ -24,8 +24,13 @@ export const apiFetch = async (url, options={}) => {
         authStore.logout();
         router.push("/login")
         throw new CustomError({general: "逾時請重新登入"});
-      } 
-      return response.json();
+      }else if (response.status === 429){
+        authStore.logout();
+        router.push("/login")
+        throw new CustomError({general: "請求過於頻繁，請稍後再試"});
+      }
+
+      return response.json(); 
 
     }).catch(error => {
       console.error("API Error", error);

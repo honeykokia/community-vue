@@ -28,7 +28,7 @@ export const register = async (data) => {
   try {
 
     const rawData = toRaw(data);
-    const response = await apiFetch(`${api}/user/register`, {
+    const response = await apiFetch(`${api}/user`, {
       method: "POST",
       body: JSON.stringify(rawData),
     });
@@ -48,7 +48,7 @@ export const resendVerifyMail = async(data) =>{
   const {email} = data;
 
   try {
-    const response = await apiFetch(`${api}/user/resendMail`,{
+    const response = await apiFetch(`${api}/user/resend-verification`,{
       method:"POST",
       body: JSON.stringify({email: email}),
     });
@@ -61,7 +61,7 @@ export const resendVerifyMail = async(data) =>{
 
 export const memberGet = async()=>{
   try{
-    const response = await apiFetch(`${api}/user/member`,{
+    const response = await apiFetch(`${api}/user/me`,{
       method:"GET",
     });
 
@@ -73,7 +73,7 @@ export const memberGet = async()=>{
 
 export const memberSave = async(formdata)=>{
   try {
-    const response = await apiFileUpload(`${api}/user/member`,formdata);
+    const response = await apiFileUpload(`${api}/user/me`,formdata);
     return response;
   } catch (error) {
     throw error;
@@ -83,7 +83,7 @@ export const memberSave = async(formdata)=>{
 export const memberChangePassword = async(data)=>{
   try {
     const rawData = toRaw(data);
-    const response = await apiFetch(`${api}/user/member/password`,{
+    const response = await apiFetch(`${api}/user/me/password`,{
       method:"PATCH",
       body: JSON.stringify(rawData),
     });
@@ -96,7 +96,7 @@ export const memberChangePassword = async(data)=>{
 export const forgetPasswordRequest = async(data) => {
   try {
     const rawData = {"email": data};
-    const response = await apiFetch(`${api}/user/forgetPassword/request`, {
+    const response = await apiFetch(`${api}/user/password-reset-requests`, {
       method: "POST",
       body: JSON.stringify(rawData),
     });
@@ -110,7 +110,7 @@ export const forgetPasswordRequest = async(data) => {
 export const forgetPasswordVerify = async(data) => {
   try {
     const rawData = toRaw(data);
-    const response = await apiFetch(`${api}/user/forgetPassword/verify`, {
+    const response = await apiFetch(`${api}/user/password-reset-verifications`, {
       method: "POST",
       body: JSON.stringify(rawData),
     });
@@ -123,7 +123,7 @@ export const forgetPasswordVerify = async(data) => {
 export const forgetPasswordReset = async(data) => {
   try {
     const rawData = toRaw(data);
-    const response = await apiFetch(`${api}/user/forgetPassword/reset`, {
+    const response = await apiFetch(`${api}/user/password-resets`, {
       method: "PUT",
       body: JSON.stringify(rawData),
     });
