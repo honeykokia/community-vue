@@ -4,6 +4,7 @@ import { CustomError } from "@/utils/CustomError";
 
 export const apiFetch = async (url, options={}) => {
 
+
   const authStore = useAuthStore();
   const token = authStore.token;
 

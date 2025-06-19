@@ -28,7 +28,7 @@ export const register = async (data) => {
   try {
 
     const rawData = toRaw(data);
-    const response = await apiFetch(`${api}/user`, {
+    const response = await apiFetch(`${api}/user/register`, {
       method: "POST",
       body: JSON.stringify(rawData),
     });
